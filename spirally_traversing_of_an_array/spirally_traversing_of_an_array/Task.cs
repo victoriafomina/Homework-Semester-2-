@@ -26,7 +26,7 @@ namespace TraversingOfMatrix
             Console.WriteLine($"{matrix[size / 2, size / 2]}");
             if (size > 1)
             {
-                TraversingRecursion(matrix, 3, size / 2 - 1, size / 2);
+                TraversingRecursion(matrix, 3, size / 2 + 1, size / 2);
             }
         }
 
@@ -36,11 +36,11 @@ namespace TraversingOfMatrix
             {
                 return;
             }
-            for (var column = startColumn; startColumn <= startColumn + dimension - 2; ++column)
+            for (var column = startColumn; column <= startColumn + dimension - 2; ++column)
             {
                 Console.WriteLine($"{matrix[startRow, column]}");
             }
-            for (var row = startRow + 1; row >= startRow - dimension + 1; --row)
+            for (var row = startRow - 1; row >= startRow - dimension + 1; --row)
             {
                 Console.WriteLine($"{matrix[row, startColumn + 1]}");
             }
@@ -50,7 +50,7 @@ namespace TraversingOfMatrix
             }
             for (var row = startRow - dimension + 2; row <= startRow; ++row)
             {
-                Console.WriteLine($"{matrix[row, startColumn]}");
+                Console.WriteLine($"{matrix[row, startColumn - 1]}");
             }
             TraversingRecursion(matrix, dimension + 2, startRow + 1, startColumn - 1);
         }
