@@ -59,6 +59,16 @@ namespace List
             }
         }
 
+        private Node<T1> GetPreviousElementByPosition(int position)
+        {
+            Node<T1> previous = head;
+            for (int i = 0; i < position - 1; ++i)
+            {
+                previous = previous.Next;
+            }
+            return previous;
+        }
+
         /// <summary>
         /// Pushes an element into position.
         /// </summary>
@@ -79,13 +89,8 @@ namespace List
             else
             {
                 ++size;
-                Node<T1> previous = head;
-                Node<T1> next = null;
-                for (int i = 0; i < position - 1; ++i)
-                {
-                    previous = previous.Next;
-                }
-                next = previous.Next;
+                Node<T1> previous = GetPreviousElementByPosition(position);
+                Node<T1> next = previous.Next;
                 previous.Next = new Node<T1>(data)
                 {
                     Previous = previous,
@@ -111,13 +116,8 @@ namespace List
             {
                 --size;
                 // copypaste
-                Node<T1> previous = head;
-                Node<T1> next = null;
-                for (int i = 0; i < position - 1; ++i)
-                {
-                    previous = previous.Next;
-                }
-                next = previous.Next.Next;
+                Node<T1> previous = GetPreviousElementByPosition(position);
+                Node<T1> next = previous.Next.Next;
                 previous.Next = next;
                 next.Previous = previous;
             }
