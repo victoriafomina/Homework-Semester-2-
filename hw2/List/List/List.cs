@@ -7,6 +7,10 @@
 
 namespace List
 {
+    /// <summary>
+    /// List is a linear collection of data elements.
+    /// </summary>
+    /// <typeparam name="T1"></typeparam>
     class List<T1>
     {
         private Node<T1> head = null;
@@ -29,6 +33,9 @@ namespace List
             public Node<T2> Previous { get; set; }
         }
 
+        /// <summary>
+        /// Size of a list.
+        /// </summary>
         public int Size
         {
             get
@@ -37,10 +44,11 @@ namespace List
             }
         }
 
+        /// <summary>
+        /// Checks if list is empty.
+        /// </summary>
         public bool IsEmpty()
-        {
-            return head == null;
-        }
+          => size == 0;
 
         private void CheckCorectnessOfPosition(int position)
         {
@@ -51,6 +59,11 @@ namespace List
             }
         }
 
+        /// <summary>
+        /// Pushes an element into position.
+        /// </summary>
+        /// <param name="position">Index by which element is going to be add.</param>
+        /// <param name="data">Element to add.</param>
         public void PushByPosition(int position, T1 data)
         {
             CheckCorectnessOfPosition(position);
@@ -82,6 +95,10 @@ namespace List
             }
         }
 
+        /// <summary>
+        /// Removes the item at the given position.
+        /// </summary>
+        /// <param name="position">Index by which item is going to be removed.</param>
         public void PopByPosition(int position)
         {
             CheckCorectnessOfPosition(position);
@@ -106,6 +123,11 @@ namespace List
             }
         }
 
+        /// <summary>
+        /// Gets value by the position.
+        /// </summary>
+        /// <param name="position">Index by which value is going to be returned.</param>
+        /// <returns>Element at the given position.</returns>
         public T1 GetValueByPosition(int position)
         {
             Node<T1> currentNode = head;
@@ -115,7 +137,8 @@ namespace List
             }
             return currentNode.Data;
         }
-
+                
+        /// <returns>String that contains current list.</returns>
         public override string ToString()
         {
             string s = "";
