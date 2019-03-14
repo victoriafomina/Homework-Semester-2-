@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 //Написать связный список в виде класса.От списка хочется:
 //- Добавлять/удалять элемент по произвольной позиции, задаваемой целым числом
@@ -15,11 +11,9 @@ namespace List
     {
         private Node<T1> head = null;
 
-        private Node<T1> tail = null;
-
         private int size = 0;
 
-        public class Node<T2>
+        private class Node<T2>
         {
             public Node(T2 data)
             {
@@ -34,8 +28,6 @@ namespace List
 
             public Node<T2> Previous { get; set; }
         }
-
-        public List() { }
 
         public int Size
         {
@@ -59,28 +51,69 @@ namespace List
             }
         }
 
-        public void Push(int position, T1 value)
+        public void PushByPosition(int position, T1 data)
         {
             CheckCorectnessOfPosition(position);
-            if (IsEmpty())
+            if (position == 0)
             {
-                head = new Node<T1>(value);
-                tail = head;
+                ++size;
+                var temp = head;
+                head = new Node<T1>(data)
+                {
+                    Next = temp
+                };
             }
             else
             {
-
+                ++size;
+                Node<T1> previous = head;
+                Node<T1> next = null;
+                for (int i = 0; i < position - 1; ++i)
+                {
+                    previous = previous.Next;
+                }
+                next = previous.Next;
+                previous.Next = new Node<T1>(data)
+                {
+                    Previous = previous,
+                    Next = next
+                };
+                next.Previous = previous.Next;   
             }
         }
 
-        public void Pop(int position)
+        public void PopByPosition(int position)
         {
-
+            CheckCorectnessOfPosition(position);
+            if (position == 0)
+            {
+                --size;
+                head = null;
+            }
+            else
+            {
+                --size;
+                // copypaste
+                Node<T1> previous = head;
+                Node<T1> next = null;
+                for (int i = 0; i < position - 1; ++i)
+                {
+                    previous = previous.Next;
+                }
+                next = previous.Next.Next;
+                previous.Next = next;
+                next.Previous = previous;
+            }
         }
 
-        public int GetValue(int position)
+        public T1 GetValueByPosition(int position)
         {
-            return -1;
+            Node<T1> currentNode = head;
+            for (int i = 0; i < position; ++i)
+            {
+                currentNode = currentNode.Next;
+            }
+            return currentNode.Data;
         }
 
         public override string ToString()
