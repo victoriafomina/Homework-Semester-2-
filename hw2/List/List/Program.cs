@@ -6,7 +6,7 @@ namespace List
     {
         static void Main(string[] args)
         {
-            var list = new List<int>();
+            var list = new List<int>();      
 
             Console.ReadKey();
         }
