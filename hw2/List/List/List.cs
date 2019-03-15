@@ -1,17 +1,12 @@
 ﻿using System;
 
-//Написать связный список в виде класса.От списка хочется:
-//- Добавлять/удалять элемент по произвольной позиции, задаваемой целым числом
-//- Узнавать размер, проверять на пустоту
-//- Получать или устанавливать значение элемента по позиции, задаваемой целым числом
-
 namespace List
 {
     /// <summary>
     /// List is a linear collection of data elements.
     /// </summary>
     /// <typeparam name="T1"></typeparam>
-    class List<T1>
+    public class List<T1>
     {
         private Node<T1> head = null;
 
@@ -50,23 +45,26 @@ namespace List
         public bool IsEmpty()
           => size == 0;
 
-        private void CheckCorectnessOfPosition(int position)
-        {
-            if (position < 0 || position > Size)
-            {
-                throw new ArgumentException(string.Format("Invalid position", position,
-                        " position\n"));
-            }
-        }
-
         private Node<T1> GetPreviousElementByPosition(int position)
         {
-            Node<T1> previous = head;
-            for (int i = 0; i < position - 1; ++i)
+            if (position < 0 || position > size)
             {
-                previous = previous.Next;
+                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
+                       " position\n"));
+            }            
+            if (position == 0)
+            {
+                return null;
             }
-            return previous;
+            else
+            {
+                Node<T1> previous = head;
+                for (int i = 0; i < position - 1; ++i)
+                {
+                    previous = previous.Next;
+                }
+                return previous;
+            }      
         }
 
         /// <summary>
@@ -74,21 +72,34 @@ namespace List
         /// </summary>
         /// <param name="position">Index by which element is going to be add.</param>
         /// <param name="data">Element to add.</param>
-        public void PushByPosition(int position, T1 data)
+        public void PushToPosition(int position, T1 data)
         {
-            CheckCorectnessOfPosition(position);
+            if (position < 0 || position > size)
+            {
+                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
+                       " position\n"));
+            }
+            ++size;
             if (position == 0)
             {
-                ++size;
                 var temp = head;
                 head = new Node<T1>(data)
                 {
-                    Next = temp
+                    Previous = null,
+                    Next = temp           
+                };
+            }
+            else if (position == size)
+            {
+                Node<T1> previous = GetPreviousElementByPosition(position);
+                previous.Next = new Node<T1>(data)
+                {
+                    Previous = previous,
+                    Next = null
                 };
             }
             else
             {
-                ++size;
                 Node<T1> previous = GetPreviousElementByPosition(position);
                 Node<T1> next = previous.Next;
                 previous.Next = new Node<T1>(data)
@@ -96,31 +107,49 @@ namespace List
                     Previous = previous,
                     Next = next
                 };
-                next.Previous = previous.Next;   
+                if (next != null)
+                {
+                    next.Previous = previous.Next;
+                } 
             }
         }
 
         /// <summary>
-        /// Removes the item at the given position.
+        /// Removes the item from the given position.
         /// </summary>
         /// <param name="position">Index by which item is going to be removed.</param>
-        public void PopByPosition(int position)
+        public void PopFromPosition(int position)
         {
-            CheckCorectnessOfPosition(position);
-            if (position == 0)
+            if (position < 0 || position > size - 1)
             {
-                --size;
+                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
+                       " position\n"));
+            }            
+            if (size == 1)
+            {
                 head = null;
             }
             else
             {
-                --size;
-                // copypaste
                 Node<T1> previous = GetPreviousElementByPosition(position);
-                Node<T1> next = previous.Next.Next;
-                previous.Next = next;
-                next.Previous = previous;
+                Node<T1> next = head;
+                if (position == 0)
+                {
+                    head = next.Next;
+                    next.Next.Previous = null;
+                    next = null;
+                }
+                if (previous != null)
+                {
+                    next = previous.Next.Next;
+                    previous.Next = next;                  
+                }
+                if (next != null)
+                {
+                    next.Previous = previous;
+                }
             }
+            --size;
         }
 
         /// <summary>
@@ -130,6 +159,11 @@ namespace List
         /// <returns>Element at the given position.</returns>
         public T1 GetValueByPosition(int position)
         {
+            if (IsEmpty() || position < 0 || position > size - 1)
+            {
+                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
+                       " position\n"));
+            }
             Node<T1> currentNode = head;
             for (int i = 0; i < position; ++i)
             {
