@@ -6,7 +6,7 @@ namespace HashTable
     /// List is a linear collection of data elements.
     /// </summary>
     /// <typeparam name="T1"></typeparam>
-    public abstract class List<T1>
+    public class List<T1>
     {
         private Node<T1> head = null;
 
@@ -164,12 +164,39 @@ namespace HashTable
                 throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
                         " position\n"));
             }
+                      
             Node<T1> currentNode = head;
             for (int i = 0; i < position; ++i)
             {
                 currentNode = currentNode.Next;
             }
             return currentNode.Data;
+        }
+
+        /// <summary>
+        /// Returns position of the value if the value is in the list. 
+        /// Returns -1 if the value does not exist in the list.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public int GetPositionByValue(T1 value)
+        {
+            if (!Exists(value))
+            {
+                return -1;
+            }
+            Node<T1> currentNode = head;
+            int position = 0;
+            for (int i = 0; i <= size; ++i)
+            {
+                if (currentNode.Data.Equals(value))
+                {
+                    position = i;
+                    break;
+                }
+                currentNode = currentNode.Next;
+            }
+            return position;
         }
 
         /// <returns>String that contains current list.</returns>
@@ -199,7 +226,7 @@ namespace HashTable
             var currentNode = head;
             for (int i = 0; i <= size; ++i)
             {
-                if (currentNode.Data == data)
+                if (currentNode.Data.Equals(data))
                 {
                     return true;
                 }
@@ -207,9 +234,5 @@ namespace HashTable
             }
             return false;
         }
-
-        public static abstract bool operator==(T1 data1, T1 data2);
-
-        public static abstract bool operator !=(T1 data1, T1 data2);
     }
 }

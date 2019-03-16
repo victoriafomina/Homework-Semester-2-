@@ -1,18 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//Написать хеш-таблицу в виде класса с использованием класса-списка из первой задачи.
-//Должно быть можно добавлять значение в хеш-таблицу, удалять и проверять на принадлежность
 
 namespace HashTable
 {
     public class HashTable
     {
-        private static int size = 100;
-        private static List<int>[] bucket = new List<int>[size];
+        private static int size;
+        private static List<int>[] bucket;
+        public HashTable()
+        {
+            size = 100;
+            bucket = new List<int>[size];
+            for (int i = 0; i < 100; ++i)
+            {
+                bucket[i] = new List<int>();
+            }
+        }
                 
         /// <summary>
         /// Adds a value to the hash table.
@@ -27,7 +29,7 @@ namespace HashTable
             }
             else
             {
-                bucket[hash].PushToPosition(size, value);
+                bucket[hash].PushToPosition(bucket[hash].Size, value);
             }
         }
 
@@ -37,7 +39,14 @@ namespace HashTable
         /// <param name="value"></param>
         public void DeleteValue(int value)
         {
-
+            int hash = Math.Abs(HashFunction(value)) % size;
+            int position = bucket[hash].GetPositionByValue(value);
+            if (position < 0)
+            {
+                throw new InvalidOperationException(string.Format("Argument with the value does " +
+                        "not exist ", value, " value\n"));
+            }
+            bucket[hash].PopFromPosition(position);
         }
 
         /// <summary>
@@ -48,6 +57,7 @@ namespace HashTable
         public bool Exists(int value)
         {
             int hash = Math.Abs(HashFunction(value)) % size;
+            return bucket[hash].Exists(value);
         }
 
         private int HashFunction(int value)
