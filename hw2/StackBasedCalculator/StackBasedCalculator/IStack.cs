@@ -8,7 +8,7 @@
         /// <summary>
         /// Pushes an element into a stack.
         /// </summary>
-        void Push();
+        void Push(T data);
 
         /// <summary>
         /// Pops an element from the stack.
@@ -16,14 +16,15 @@
         void Pop();
 
         /// <summary>
-        /// Gets a value of the element that was pushed last into a stack.
+        /// Returns an element that is in the top.
         /// </summary>
         /// <returns></returns>
         T Peek();
 
         /// <summary>
-        /// Checks if an element is in the Stack.
+        /// Checks if stack is empty or not.
         /// </summary>
-        void Exists();
+        /// <returns></returns>
+        bool isEmpty();
     }
 }
