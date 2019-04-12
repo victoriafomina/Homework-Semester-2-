@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Queue.Tests
 {
@@ -32,6 +31,14 @@ namespace Queue.Tests
             Assert.IsTrue(queue.IsEmpty());
         }
 
+
+        [TestMethod]
+        [ExpectedException(typeof(PriorityQueue.QueueException))]
+        public void DequeueFromEmptyTest()
+        {
+            queue.Dequeue();
+        }
+
         [TestMethod]
         public void EnqueueTestTwoElementsThatHaveToBeChangedInQueue()
         {
@@ -51,6 +58,21 @@ namespace Queue.Tests
             Assert.AreEqual(1, queue.Dequeue());
             Assert.AreEqual(3, queue.Dequeue());
             Assert.AreEqual(2, queue.Dequeue());
+            Assert.IsTrue(queue.IsEmpty());
+        }
+
+        [TestMethod]
+        public void IsEmptyTestNotEmptyQueue()
+        {
+            queue.Enqueu(1, 1);
+            Assert.IsFalse(queue.IsEmpty());
+        }
+
+        [TestMethod]
+        public void IsEmptyTestEmptyQueueFromWhichElementWasRemoved()
+        {
+            queue.Enqueu(1, 1);
+            queue.Dequeue();
             Assert.IsTrue(queue.IsEmpty());
         }
     }

@@ -7,10 +7,6 @@
 // last in - last out
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PriorityQueue
 {
@@ -44,9 +40,9 @@ namespace PriorityQueue
                 {
                     temp = temp.Next;
                 }
-                if (temp == head || temp.Next == null)
+                if (temp == head)
                 {
-                    if (temp == head)
+                    if (temp.Next != null)
                     {
                         newElement.Next = head;
                         newElement.Previous = null;
@@ -55,7 +51,17 @@ namespace PriorityQueue
                     }
                     else
                     {
-
+                        if (temp.Priority >= newElement.Priority)
+                        {
+                            temp.Next = newElement;
+                            newElement.Previous = temp;
+                        }
+                        else
+                        {
+                            newElement.Next = temp;
+                            temp.Previous = newElement;
+                            head = newElement;
+                        }
                     }
                 }
                 else
@@ -75,7 +81,7 @@ namespace PriorityQueue
         {
             if (IsEmpty())
             {
-                throw new Exception();
+                throw new QueueException("You tried to remove from an empty queue!!!");
             }
             var temp = head;
             head = head.Next;
