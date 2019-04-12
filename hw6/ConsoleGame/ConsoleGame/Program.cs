@@ -18,6 +18,10 @@ namespace ConsoleGame
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello");
+            Console.Clear();
+            int x = Console.CursorLeft;
+            int y = Console.CursorTop;
         }
     }
 }
