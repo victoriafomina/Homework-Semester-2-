@@ -44,12 +44,19 @@ namespace PriorityQueue
                 {
                     temp = temp.Next;
                 }
-                if (temp == head)
+                if (temp == head || temp.Next == null)
                 {
-                    newElement.Next = head;
-                    newElement.Previous = null;
-                    head.Previous = newElement;
-                    head = newElement;
+                    if (temp == head)
+                    {
+                        newElement.Next = head;
+                        newElement.Previous = null;
+                        head.Previous = newElement;
+                        head = newElement;
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else
                 {
@@ -57,6 +64,7 @@ namespace PriorityQueue
                     newElement.Previous = temp;
                 }
             }
+            ++size;
         }
 
         /// <summary>
@@ -71,7 +79,11 @@ namespace PriorityQueue
             }
             var temp = head;
             head = head.Next;
-            head.Previous = null;
+            if (head != null)
+            {
+                head.Previous = null;
+            }
+            --size;
             return temp.Value;
         }
 
