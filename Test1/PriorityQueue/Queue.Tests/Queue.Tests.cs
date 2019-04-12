@@ -75,5 +75,21 @@ namespace Queue.Tests
             queue.Dequeue();
             Assert.IsTrue(queue.IsEmpty());
         }
+
+        [TestMethod]
+        public void DequeueTestOnTwoElements()
+        {
+            queue.Enqueu(1, 4);
+            queue.Enqueu(2, 4);
+            Assert.AreEqual(1, queue.Dequeue());
+            Assert.AreEqual(2, queue.Dequeue());
+        }
+
+        [TestMethod]
+        public void DequeuTestOneElement()
+        {
+            queue.Enqueu(1, 1);
+            Assert.AreEqual(1, queue.Dequeue());
+        }
     }
 }
