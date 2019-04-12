@@ -22,6 +22,7 @@ namespace PriorityQueue
         public Queue()
         {
             size = 0;
+            head = null;
         }
 
         /// <summary>
@@ -31,7 +32,31 @@ namespace PriorityQueue
         /// <param name="priority"></param>
         public void Enqueu(int value, int priority)
         {
-
+            var newElement = new QueueElement(value, priority);
+            if (size == 0)
+            {
+                head = newElement;
+            }
+            else
+            {
+                var temp = head;
+                while (newElement.Priority <= temp.Priority && temp.Next != null)
+                {
+                    temp = temp.Next;
+                }
+                if (temp == head)
+                {
+                    newElement.Next = head;
+                    newElement.Previous = null;
+                    head.Previous = newElement;
+                    head = newElement;
+                }
+                else
+                {
+                    temp.Next = newElement;
+                    newElement.Previous = temp;
+                }
+            }
         }
 
         /// <summary>
@@ -40,7 +65,14 @@ namespace PriorityQueue
         /// <returns></returns>
         public int Dequeue()
         {
-
+            if (IsEmpty())
+            {
+                throw new Exception();
+            }
+            var temp = head;
+            head = head.Next;
+            head.Previous = null;
+            return temp.Value;
         }
 
         /// <summary>
@@ -48,10 +80,9 @@ namespace PriorityQueue
         /// </summary>
         /// <returns></returns>
         public bool IsEmpty()
-        {
-            return size == 0;
-        }
+                => size == 0;
 
+        private QueueElement head;
         private int size;
         public int Size
         {
