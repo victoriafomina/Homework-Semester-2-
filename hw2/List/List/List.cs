@@ -155,8 +155,7 @@ namespace List
         {
             if (IsEmpty() || position < 0 || position > size - 1)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                       " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position {position} \"position\"\n");
             }
             Node<T> currentNode = head;
             for (int i = 0; i < position; ++i)

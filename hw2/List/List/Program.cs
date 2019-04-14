@@ -6,7 +6,7 @@ namespace List
     {
         static void Main(string[] args)
         {
-            
+
         }
     }
 }
