@@ -21,7 +21,6 @@ namespace List.Tests
         [TestMethod]
         public void PushTestListOfOneElementCheckItIsNotEmpty()
         {
-            Initialize();
             list.PushToPosition(0, 2);
             Assert.IsFalse(list.IsEmpty());
         }
@@ -29,7 +28,6 @@ namespace List.Tests
         [TestMethod]
         public void PushTestOneElementCheckItIsRight()
         {
-            Initialize();
             list.PushToPosition(0, 2);
             Assert.AreEqual(2, list.GetValueByPosition(0));
             Assert.AreEqual(1, list.Size);
@@ -38,7 +36,6 @@ namespace List.Tests
         [TestMethod]
         public void PushTestTwoElementsCheckTheyAreRight()
         {
-            Initialize();
             list.PushToPosition(0, 3);
             list.PushToPosition(1, 4);
             Assert.AreEqual(3, list.GetValueByPosition(0));
@@ -48,7 +45,6 @@ namespace List.Tests
         [TestMethod]
         public void PushTestThreeElementsCheckTheyAreRight()
         {
-            Initialize();
             list.PushToPosition(0, 5);
             list.PushToPosition(1, 6);
             list.PushToPosition(2, 7);
@@ -60,7 +56,6 @@ namespace List.Tests
         [TestMethod]
         public void PushTestTwoElementsAlwaysAddToZeroPosition()
         {
-            Initialize();
             list.PushToPosition(0, 6);
             list.PushToPosition(0, 5);
             Assert.AreEqual(5, list.GetValueByPosition(0));
@@ -70,7 +65,6 @@ namespace List.Tests
         [TestMethod]
         public void PushTestSomeElementsAddToSimiliarPosition()
         {
-            Initialize();
             list.PushToPosition(0, 6);
             list.PushToPosition(1, 7);
             list.PushToPosition(1, 8);
@@ -85,7 +79,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void PushTestAddToInvalidPosition()
         {
-            Initialize();
             list.PushToPosition(1, 7);
         }
 
@@ -93,7 +86,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void PushTestAddToNegativePosition()
         {
-            Initialize();
             list.PushToPosition(-1, -8);
         }
 
@@ -102,7 +94,6 @@ namespace List.Tests
         [TestMethod]
         public void PopTestOneElement()
         {
-            Initialize();
             list.PushToPosition(0, 7);
             list.PopFromPosition(0);
             Assert.IsTrue(list.IsEmpty());
@@ -111,7 +102,6 @@ namespace List.Tests
         [TestMethod]
         public void PopTestTwoElements()
         {
-            Initialize();
             list.PushToPosition(0, 3);
             list.PushToPosition(1, -4);
             list.PopFromPosition(0);
@@ -121,7 +111,6 @@ namespace List.Tests
         [TestMethod]
         public void PopTestThreeElementsPopFromSimiliarPosition()
         {
-            Initialize();
             list.PushToPosition(0, 7);
             list.PushToPosition(1, -8);
             list.PushToPosition(2, 9);
@@ -134,7 +123,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void PopTestEmptyList()
         {
-            Initialize();
             list.PopFromPosition(0);
         }
 
@@ -142,7 +130,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void PopTestPopFromInvalidPosition()
         {
-            Initialize();
             list.PushToPosition(0, 7);
             list.PopFromPosition(1);
         }
@@ -151,7 +138,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void PopTestPopFromNegativePosition()
         {
-            Initialize();
             list.PushToPosition(0, 7);
             list.PopFromPosition(-1);
         }
@@ -162,7 +148,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GetValueByPositionInvalidPositionEmptyList()
         {
-            Initialize();
             list.GetValueByPosition(0);
         }
 
@@ -170,7 +155,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GetValueByPositionInvalidPositionNotEmptyList()
         {
-            Initialize();
             list.PushToPosition(0, 8);
             list.PopFromPosition(1);
         }
@@ -179,7 +163,6 @@ namespace List.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GetValueByPositionInvalidNegativePosition()
         {
-            Initialize();
             list.PushToPosition(0, 6);
             list.GetValueByPosition(-1);
         }
@@ -187,7 +170,6 @@ namespace List.Tests
         [TestMethod]
         public void GetValueByPositionOneElement()
         {
-            Initialize();
             list.PushToPosition(0, -7);
             Assert.AreEqual(-7, list.GetValueByPosition(0));
         }
@@ -195,7 +177,6 @@ namespace List.Tests
         [TestMethod]
         public void GetValueByPositionTwoElements()
         {
-            Initialize();
             list.PushToPosition(0, 7);
             list.PushToPosition(1, 8);
             Assert.AreEqual(7, list.GetValueByPosition(0));
@@ -207,14 +188,12 @@ namespace List.Tests
         [TestMethod]
         public void IsEmptyTestForEmptyList()
         {
-            Initialize();
             Assert.AreEqual(true, list.IsEmpty());
         }
 
         [TestMethod]
         public void IsEmptyTestForOneElement()
         {
-            Initialize();
             list.PushToPosition(0, 6);
             Assert.AreEqual(false, list.IsEmpty());
         }
@@ -222,7 +201,6 @@ namespace List.Tests
         [TestMethod]
         public void IsEmptyTestForTwoElements()
         {
-            Initialize();
             list.PushToPosition(0, 7);
             list.PushToPosition(0, 8);
             Assert.AreEqual(false, list.IsEmpty());
@@ -233,14 +211,12 @@ namespace List.Tests
         [TestMethod]
         public void SizeTestEmptyList()
         {
-            Initialize();
             Assert.AreEqual(0, list.Size);
         }
 
         [TestMethod]
         public void SizeTestOneElement()
         {
-            Initialize();
             list.PushToPosition(0, 7);
             Assert.AreEqual(1, list.Size);
         }
@@ -248,7 +224,6 @@ namespace List.Tests
         [TestMethod]
         public void SizeTestTwoElements()
         {
-            Initialize();
             list.PushToPosition(0, 5);
             list.PushToPosition(1, 6);
             Assert.AreEqual(2, list.Size);
@@ -257,7 +232,6 @@ namespace List.Tests
         [TestMethod]
         public void SizeTestAfterPop()
         {
-            Initialize();
             list.PushToPosition(0, 5);
             list.PushToPosition(1, 6);
             list.PushToPosition(2, 7);
