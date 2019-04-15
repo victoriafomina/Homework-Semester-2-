@@ -208,7 +208,7 @@ namespace HashTable
         /// <summary>
         /// Checks if an item with the data exists.
         /// </summary>
-        /// <param name="data">Data of an item we want to know if it exists.</param>
+        /// <param name="data">Data to check if is in the list.</param>
         public bool Exists(T data)
         {
             if (IsEmpty())
