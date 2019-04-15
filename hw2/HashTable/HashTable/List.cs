@@ -5,27 +5,26 @@ namespace HashTable
     /// <summary>
     /// List is a linear collection of data elements.
     /// </summary>
-    /// <typeparam name="T1"></typeparam>
-    public class List<T1>
+    public class List<T>
     {
-        private Node<T1> head = null;
+        private Node<T> head = null;
 
         private int size = 0;
 
-        private class Node<T2>
+        private class Node<T>
         {
-            public Node(T2 data)
+            public Node(T data)
             {
                 Data = data;
                 Previous = null;
                 Next = null;
             }
 
-            public T2 Data { get; set; }
+            public T Data { get; set; }
 
-            public Node<T2> Next { get; set; }
+            public Node<T> Next { get; set; }
 
-            public Node<T2> Previous { get; set; }
+            public Node<T> Previous { get; set; }
         }
 
         /// <summary>
@@ -43,28 +42,25 @@ namespace HashTable
         /// Checks if list is empty.
         /// </summary>
         public bool IsEmpty()
-            => size == 0;
+                => size == 0;
 
-        private Node<T1> GetPreviousElementByPosition(int position)
+        private Node<T> GetPreviousElementByPosition(int position)
         {
             if (position < 0 || position > size)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                        " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position " +
+                        $"{position} \"position\"");
             }
             if (position == 0)
             {
                 return null;
             }
-            else
+            Node<T> previous = head;
+            for (int i = 0; i < position - 1; ++i)
             {
-                Node<T1> previous = head;
-                for (int i = 0; i < position - 1; ++i)
-                {
-                    previous = previous.Next;
-                }
-                return previous;
+                previous = previous.Next;
             }
+            return previous;
         }
 
         /// <summary>
@@ -72,37 +68,35 @@ namespace HashTable
         /// </summary>
         /// <param name="position">Index by which element is going to be add.</param>
         /// <param name="data">Element to add.</param>
-        public void PushToPosition(int position, T1 data)
+        public void PushToPosition(int position, T data)
         {
             if (position < 0 || position > size)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                        " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position " +
+                       $"{position} \"position\"");
             }
             ++size;
             if (position == 0)
             {
                 var temp = head;
-                head = new Node<T1>(data)
+                head = new Node<T>(data)
                 {
-                    Previous = null,
                     Next = temp
                 };
             }
             else if (position == size)
             {
-                Node<T1> previous = GetPreviousElementByPosition(position);
-                previous.Next = new Node<T1>(data)
+                Node<T> previous = GetPreviousElementByPosition(position);
+                previous.Next = new Node<T>(data)
                 {
-                    Previous = previous,
-                    Next = null
+                    Previous = previous
                 };
             }
             else
             {
-                Node<T1> previous = GetPreviousElementByPosition(position);
-                Node<T1> next = previous.Next;
-                previous.Next = new Node<T1>(data)
+                Node<T> previous = GetPreviousElementByPosition(position);
+                Node<T> next = previous.Next;
+                previous.Next = new Node<T>(data)
                 {
                     Previous = previous,
                     Next = next
@@ -122,8 +116,8 @@ namespace HashTable
         {
             if (position < 0 || position > size - 1)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                        " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position " +
+                       $"{position} \"position\"");
             }
             if (size == 1)
             {
@@ -131,8 +125,8 @@ namespace HashTable
             }
             else
             {
-                Node<T1> previous = GetPreviousElementByPosition(position);
-                Node<T1> next = head;
+                Node<T> previous = GetPreviousElementByPosition(position);
+                Node<T> next = head;
                 if (position == 0)
                 {
                     head = next.Next;
@@ -157,15 +151,15 @@ namespace HashTable
         /// </summary>
         /// <param name="position">Index by which value is going to be returned.</param>
         /// <returns>Element at the given position.</returns>
-        public T1 GetValueByPosition(int position)
+        public T GetValueByPosition(int position)
         {
             if (IsEmpty() || position < 0 || position > size - 1)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                        " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position " +
+                       $"{position} \"position\"");
             }
                       
-            Node<T1> currentNode = head;
+            Node<T> currentNode = head;
             for (int i = 0; i < position; ++i)
             {
                 currentNode = currentNode.Next;
@@ -177,15 +171,14 @@ namespace HashTable
         /// Returns position of the value if the value is in the list. 
         /// Returns -1 if the value does not exist in the list.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int GetPositionByValue(T1 value)
+        /// <param name="value">The value position of what we want to know.</param>
+        public int GetPositionByValue(T value)
         {
             if (!Exists(value))
             {
                 return -1;
             }
-            Node<T1> currentNode = head;
+            Node<T> currentNode = head;
             int position = 0;
             for (int i = 0; i <= size; ++i)
             {
@@ -215,9 +208,8 @@ namespace HashTable
         /// <summary>
         /// Checks if an item with the data exists.
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public bool Exists(T1 data)
+        /// <param name="data">Data of an item we want to know if it exists.</param>
+        public bool Exists(T data)
         {
             if (IsEmpty())
             {
