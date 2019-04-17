@@ -43,9 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyStack1.cs" />
+    <Compile Include="MyStackOnArray.cs" />
     <Compile Include="IStack.cs" />
-    <Compile Include="MyStack2.cs" />
+    <Compile Include="MyStackOnList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

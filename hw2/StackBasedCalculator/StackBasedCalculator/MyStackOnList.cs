@@ -1,30 +1,27 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace StackBasedCalculator
 {
     /// <summary>
     /// Stack is a last-in-first-out container.
     /// </summary>
-    public class MyStack1 : IStack<int>
+    public class MyStackOnList : IStack<int>
     {
-        private int numberOfElements;
-        private int[] array;
+        private List<int> list;
 
-        /// <summary>
-        /// Construtor without parameters for MyStack1 class.
-        /// </summary>
-        public MyStack1()
+        public MyStackOnList()
         {
-            array = new int[100];
-            numberOfElements = 0;
+            list = new List<int>();
         }
-        
+
         /// <summary>
         /// Pushes an element into a stack.
         /// </summary>
-        public void Push(int number)
+        public void Push(int data)
         {
-
+            list.Insert(list.Count, data);
         }
 
         /// <summary>
@@ -32,28 +29,28 @@ namespace StackBasedCalculator
         /// </summary>
         public void Pop()
         {
-
+            list.RemoveAt(list.Count - 1);
         }
 
         /// <summary>
         /// Returns an element that is in the top.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Last element that came into a stack.</returns>
         public int Peek()
         {
-            if (isEmpty())
+            if (list.Count == 0)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"Stack is empty!!!\n");
             }
+            return list.ElementAt(list.Count - 1);
         }
 
         /// <summary>
         /// Checks if stack is empty or not.
         /// </summary>
-        /// <returns></returns>
-        public bool isEmpty()
+        public bool IsEmpty()
         {
-            return numberOfElements == 0;
+            return list.Count == 0;
         }
     }
 }

@@ -3,7 +3,7 @@
     /// <summary>
     /// Stack is a last-in-first-out-container.
     /// </summary>
-    interface IStack<T>
+    public interface IStack<T>
     {
         /// <summary>
         /// Pushes an element into a stack.
@@ -25,6 +25,6 @@
         /// Checks if stack is empty or not.
         /// </summary>
         /// <returns></returns>
-        bool isEmpty();
+        bool IsEmpty();
     }
 }
