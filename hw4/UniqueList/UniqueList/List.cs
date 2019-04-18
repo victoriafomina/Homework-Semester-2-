@@ -41,6 +41,28 @@ namespace UniqueList
         public bool IsEmpty()
              => size == 0;
 
+        /// <summary>
+        /// Checks if element is in a list.
+        /// </summary>
+        /// <param name="data">Element to check.</param>
+        public bool Exists(T data)
+        {
+            if (IsEmpty())
+            {
+                return false;
+            }
+            var temp = head;
+            while (temp != null)
+            {
+                if (temp.Data.Equals(data))
+                {
+                    return true;
+                }
+                temp = temp.Next;
+            }
+            return false;
+        }
+
         private Node<T> GetPreviousElementByPosition(int position)
         {
             if (position < 0 || position > size)
@@ -66,7 +88,7 @@ namespace UniqueList
         /// <param name="position">Index by which element is going to be add.</param>
         /// <param name="data">Element to add.</param>
         /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.</exception>
-        public void PushToPosition(int position, T data)
+        public virtual void PushToPosition(int position, T data)
         {
             if (position < 0 || position > size)
             {
@@ -107,42 +129,38 @@ namespace UniqueList
         }
 
         /// <summary>
-        /// Removes the item from the given position.
+        /// Pops an element with the data "data".
         /// </summary>
-        /// <param name="position">Index by which item is going to be removed.</param>
-        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.</exception>
-        public void PopFromPosition(int position)
+        /// <param name="data">Data of the element to pop.</param>
+        /// <exception cref="InvalidOperationException"Thrown when element does not found.></exception>
+        public virtual void Pop(T data)
         {
-            if (position < 0 || position > size - 1)
+            if (!Exists(data))
             {
-                throw new ArgumentOutOfRangeException($"Invalid position {position}" +
-                       " \"position\"\n");
+                throw new InvalidOperationException($"Element with the data {data} is not in the list\n");
             }
-            if (size == 1)
+            --size;
+            var temp = head;
+            while (!temp.Data.Equals(data))
             {
-                head = null;
+                temp = temp.Next;
+            }
+            if (temp == head)
+            {
+                head = head.Next;
+                if (head != null)
+                {
+                    head.Previous = null;
+                }
             }
             else
             {
-                Node<T> previous = GetPreviousElementByPosition(position);
-                Node<T> next = head;
-                if (position == 0)
+                temp.Previous.Next = temp.Next;
+                if (temp.Next != null)
                 {
-                    head = next.Next;
-                    next.Next.Previous = null;
-                    next = null;
-                }
-                if (previous != null)
-                {
-                    next = previous.Next.Next;
-                    previous.Next = next;
-                }
-                if (next != null)
-                {
-                    next.Previous = previous;
+                    temp.Next.Previous = temp.Previous;
                 }
             }
-            --size;
         }
 
         /// <summary>

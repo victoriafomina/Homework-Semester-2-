@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuplicateElementException.cs" />
+    <Compile Include="ElementDoesNotExistException.cs" />
     <Compile Include="List.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

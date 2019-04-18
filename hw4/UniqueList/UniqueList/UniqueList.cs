@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace UniqueList
 {
     /// <summary>
-    /// UniqueList is a container that does not contain duplicate elements.
+    /// UniqueList is a linear container of data elemenents.
+    /// UniqueList does not contain duplicate elements.
     /// </summary>
-    class UniqueList : List<int>
+    public class UniqueList : List<int>
     {
         List<int> list;
 
@@ -18,9 +18,29 @@ namespace UniqueList
             list = new List<int>();
         }
 
-        public void Add()
+        /// <summary>
+        /// Pushes an element into position.
+        /// </summary>
+        /// <param name="position">Index by which element is going to be add.</param>
+        /// <param name="data">Element to add.</param>
+        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.</exception>
+        public override void PushToPosition(int position, int data)
         {
+            if (Exists(data))
+            {
+                throw new DuplicateElementException($"Element with the data {data} is already in the list\n");
+            }
+            base.PushToPosition(position, data);
+        }
 
+        public override void Pop(int data)
+        {
+            if (!Exists(data))
+            {
+                throw new ElementDoesNotExistException($"Element with the data {data} does not exist " +
+                        $"in the list\n");
+            }
+            base.Pop(data);
         }
     }
 }
