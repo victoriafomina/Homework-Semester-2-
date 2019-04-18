@@ -34,7 +34,7 @@ namespace StackBasedCalculator
         /// <param name="expression">Expression in postfix form including single
         /// digits and operators.</param>
         /// <returns>Evaluation of postfix expression.</returns>
-        /// <exception cref="FormatException"Thrown when expression is invalid.</exception>
+        /// <exception cref="FormatException"Thrown when expression is invalid.></exception>
         public double Evaluate(string expression)
         {
             for (int i = 0; i < expression.Length; ++i)

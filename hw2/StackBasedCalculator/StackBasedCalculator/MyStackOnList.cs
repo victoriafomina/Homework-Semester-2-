@@ -27,7 +27,7 @@ namespace StackBasedCalculator
         /// <summary>
         /// Pops an element from the stack.
         /// </summary>
-        /// <exception cref="InvalidOperationException"Thrown when stack is empty.</exception>
+        /// <exception cref="InvalidOperationException"Thrown when stack is empty.></exception>
         public void Pop()
         {
             if (IsEmpty())
@@ -41,7 +41,7 @@ namespace StackBasedCalculator
         /// Returns an element that is in the top.
         /// </summary>
         /// <returns>Last element that came into a stack.</returns>
-        /// <exception cref="InvalidOperationException"Thrown when stack is empty.</exception>
+        /// <exception cref="InvalidOperationException"Thrown when stack is empty.></exception>
         public int Peek()
         {
             if (list.Count == 0)
