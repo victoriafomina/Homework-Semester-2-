@@ -32,10 +32,7 @@ namespace List
         /// </summary>
         public int Size
         {
-            get
-            {
-                return size;
-            }
+            get => size;
         }
 
         /// <summary>
@@ -48,8 +45,8 @@ namespace List
         {
             if (position < 0 || position > size)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                       " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position {position}" +
+                       " \"position\"\n");
             }            
             if (position == 0)
             {
@@ -68,12 +65,13 @@ namespace List
         /// </summary>
         /// <param name="position">Index by which element is going to be add.</param>
         /// <param name="data">Element to add.</param>
+        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.></exception>
         public void PushToPosition(int position, T data)
         {
             if (position < 0 || position > size)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                       " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position {position}" +
+                       " \"position\"\n");
             }
             ++size;
             if (position == 0)
@@ -112,12 +110,13 @@ namespace List
         /// Removes the item from the given position.
         /// </summary>
         /// <param name="position">Index by which item is going to be removed.</param>
+        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.></exception>
         public void PopFromPosition(int position)
         {
             if (position < 0 || position > size - 1)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Invalid position", position,
-                       " position\n"));
+                throw new ArgumentOutOfRangeException($"Invalid position {position}" +
+                        " \"position\"\n");
             }            
             if (size == 1)
             {
@@ -151,6 +150,7 @@ namespace List
         /// </summary>
         /// <param name="position">Index by which value is going to be returned.</param>
         /// <returns>Element at the given position.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.></exception>
         public T GetValueByPosition(int position)
         {
             if (IsEmpty() || position < 0 || position > size - 1)

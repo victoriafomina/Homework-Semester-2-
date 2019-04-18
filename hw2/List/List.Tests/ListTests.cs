@@ -188,14 +188,14 @@ namespace List.Tests
         [TestMethod]
         public void IsEmptyTestForEmptyList()
         {
-            Assert.AreEqual(true, list.IsEmpty());
+            Assert.IsTrue(list.IsEmpty());
         }
 
         [TestMethod]
         public void IsEmptyTestForOneElement()
         {
             list.PushToPosition(0, 6);
-            Assert.AreEqual(false, list.IsEmpty());
+            Assert.IsFalse(list.IsEmpty());
         }
 
         [TestMethod]
@@ -203,7 +203,7 @@ namespace List.Tests
         {
             list.PushToPosition(0, 7);
             list.PushToPosition(0, 8);
-            Assert.AreEqual(false, list.IsEmpty());
+            Assert.IsFalse(list.IsEmpty());
         }
 
         // size of list tests
