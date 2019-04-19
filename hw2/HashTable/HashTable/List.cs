@@ -7,11 +7,11 @@ namespace HashTable
     /// </summary>
     public class List<T>
     {
-        private Node<T> head = null;
+        private Node head = null;
 
         private int size = 0;
 
-        private class Node<T>
+        private class Node
         {
             public Node(T data)
             {
@@ -22,9 +22,9 @@ namespace HashTable
 
             public T Data { get; set; }
 
-            public Node<T> Next { get; set; }
+            public Node Next { get; set; }
 
-            public Node<T> Previous { get; set; }
+            public Node Previous { get; set; }
         }
 
         /// <summary>
@@ -32,10 +32,7 @@ namespace HashTable
         /// </summary>
         public int Size
         {
-            get
-            {
-                return size;
-            }
+            get => size;
         }
 
         /// <summary>
@@ -44,7 +41,7 @@ namespace HashTable
         public bool IsEmpty()
                 => size == 0;
 
-        private Node<T> GetPreviousElementByPosition(int position)
+        private Node GetPreviousElementByPosition(int position)
         {
             if (position < 0 || position > size)
             {
@@ -55,7 +52,7 @@ namespace HashTable
             {
                 return null;
             }
-            Node<T> previous = head;
+            Node previous = head;
             for (int i = 0; i < position - 1; ++i)
             {
                 previous = previous.Next;
@@ -79,24 +76,24 @@ namespace HashTable
             if (position == 0)
             {
                 var temp = head;
-                head = new Node<T>(data)
+                head = new Node(data)
                 {
                     Next = temp
                 };
             }
             else if (position == size)
             {
-                Node<T> previous = GetPreviousElementByPosition(position);
-                previous.Next = new Node<T>(data)
+                Node previous = GetPreviousElementByPosition(position);
+                previous.Next = new Node(data)
                 {
                     Previous = previous
                 };
             }
             else
             {
-                Node<T> previous = GetPreviousElementByPosition(position);
-                Node<T> next = previous.Next;
-                previous.Next = new Node<T>(data)
+                Node previous = GetPreviousElementByPosition(position);
+                Node next = previous.Next;
+                previous.Next = new Node(data)
                 {
                     Previous = previous,
                     Next = next
@@ -125,8 +122,8 @@ namespace HashTable
             }
             else
             {
-                Node<T> previous = GetPreviousElementByPosition(position);
-                Node<T> next = head;
+                Node previous = GetPreviousElementByPosition(position);
+                Node next = head;
                 if (position == 0)
                 {
                     head = next.Next;
@@ -159,7 +156,7 @@ namespace HashTable
                        $"{position} \"position\"");
             }
                       
-            Node<T> currentNode = head;
+            Node currentNode = head;
             for (int i = 0; i < position; ++i)
             {
                 currentNode = currentNode.Next;
@@ -178,7 +175,7 @@ namespace HashTable
             {
                 return -1;
             }
-            Node<T> currentNode = head;
+            Node currentNode = head;
             int position = 0;
             for (int i = 0; i <= size; ++i)
             {
