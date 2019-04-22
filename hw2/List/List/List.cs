@@ -30,10 +30,7 @@ namespace List
         /// <summary>
         /// Size of a list.
         /// </summary>
-        public int Size
-        {
-            get => size;
-        }
+        public int Size => size;
 
         /// <summary>
         /// Checks if list is empty.
