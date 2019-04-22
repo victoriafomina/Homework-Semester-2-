@@ -6,6 +6,7 @@ namespace ListGeneric
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
