@@ -53,7 +53,7 @@ namespace ListGeneric
         /// <exception cref="EmptyListException"Thrown when list is empty.></exception>
         public bool Contains(T data)
         {
-            if (head == null)
+            if (IsEmpty())
             {
                 throw new EmptyListException($"List is empty!!! Invalid operation!\n");
             }
@@ -78,7 +78,7 @@ namespace ListGeneric
         /// <exception cref="ElementNotFoundException"Thrown when element is not in the list.></exception> 
         public int IndexOf(T data)
         {
-            if (head == null)
+            if (IsEmpty())
             {
                 throw new EmptyListException($"List is empty! Invalid operation!\n");
             }
@@ -88,7 +88,7 @@ namespace ListGeneric
             }
             var temp = head;
             int index = 0;
-            while (!temp.Equals(data))
+            while (!temp.Data.Equals(data))
             {
                 temp = temp.Next;
                 ++index;
@@ -167,7 +167,6 @@ namespace ListGeneric
             {
                 throw new ArgumentOutOfRangeException($"Invalid position {position} \"position\"\n");
             }
-            ++count;
             if (position == 0)
             {
                 var temp = head;
@@ -198,6 +197,7 @@ namespace ListGeneric
                     next.Previous = previous.Next;
                 }
             }
+            ++count;
         }
 
         /// <summary>
