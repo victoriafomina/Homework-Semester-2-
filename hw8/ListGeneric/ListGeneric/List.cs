@@ -304,31 +304,6 @@ namespace ListGeneric
         }
 
         /// <summary>
-        /// Gets value by the position.
-        /// </summary>
-        /// <param name="position">Index by which value is going to be returned.</param>
-        /// <returns>Element at the given position.</returns>
-        /// <exception cref="EmptyListException"Thrown when list is empty.></exception>
-        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.></exception>
-        public T GetValueByPosition(int position)
-        {
-            if (IsEmpty())
-            {
-                throw new EmptyListException($"List is empty!!! Invalid operation!\n");
-            }
-            if (position < 0 || position > count - 1)
-            {
-                throw new ArgumentOutOfRangeException($"Invalid position {position} \"position\"\n");
-            }
-            Node currentNode = head;
-            for (int i = 0; i < position; ++i)
-            {
-                currentNode = currentNode.Next;
-            }
-            return currentNode.Data;
-        }
-
-        /// <summary>
         /// Gives the information if the object is only for reading.
         /// </summary>
         /// <returns>True if the object is only for reading. Otherwise returns false.</returns>
@@ -343,7 +318,8 @@ namespace ListGeneric
                 temp = temp.Next;
             }
         }
-
+        
+        /// <returns>IEnumerator.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
