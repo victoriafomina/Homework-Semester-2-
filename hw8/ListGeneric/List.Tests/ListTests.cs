@@ -230,5 +230,37 @@ namespace List.Tests
             Assert.IsTrue(list.Contains(0));
             Assert.IsTrue(list.Contains(2));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void RemoveAtTestNegativePosition()
+        {
+            list.Add(1);
+            list.RemoveAt(-1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void RemoveAtTestPositionThatIsEqualToCount()
+        {
+            list.Add(1);
+            list.Add(2);
+            list.RemoveAt(2);
+        }
+
+        [TestMethod]
+        public void RemoveAtTest()
+        {
+            list.Add(-1);
+            list.Add(-2);
+            list.Add(-3);
+            list.Add(-4);
+            list.RemoveAt(1);
+            list.RemoveAt(2);
+            Assert.IsFalse(list.Contains(-2));
+            Assert.IsFalse(list.Contains(-4));
+            Assert.IsTrue(list.Contains(-1));
+            Assert.IsTrue(list.Contains(-3));
+        }        
     }
 }
