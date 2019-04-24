@@ -1,7 +1,13 @@
 image: Visual Studio 2019
+
+environment:
+  
+  matrix:
+  - solution_path: hw8/ListGeneric/ListGeneric.sln
+  - solution_path: hw2/StackBasedCalculator/StackBasedCalculator.sln  
+  
 before_build:
-- nuget restore hw8/ListGeneric/ListGeneric.sln
-build:
-project: hw8/ListGeneric/ListGeneric.sln
-test_script:
-- dotnet test hw8/ListGeneric/ListGeneric.sln
+  - nuget restore %solution_path%
+
+build_script:
+- msbuild %solution_path%
