@@ -3,8 +3,7 @@ image: Visual Studio 2017
 environment:
   
   matrix:
-  - solution_path: hw8/ListGeneric/ListGeneric.sln
-  - solution_path: hw2/StackBasedCalculator/StackBasedCalculator.sln  
+  - solution_path: Homework-Semester-2-/tree/ListGeneric/hw8/ListGeneric/List
   
 before_build:
   - nuget restore %solution_path%
