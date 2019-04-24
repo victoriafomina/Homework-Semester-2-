@@ -1,6 +1,6 @@
 image: Visual Studio 2019
 before_build:
-- nuget restore ListGeneric.sln
+- nuget restore hw8/ListGeneric/ListGeneric.sln
 build:
 project: hw8/ListGeneric/ListGeneric.sln
 test_script:
