@@ -141,5 +141,94 @@ namespace List.Tests
             list.Remove(-3);
             Assert.AreEqual(5, list.Count);
         }
+
+        [TestMethod]
+        public void AddTestToEmptyList()
+        {
+            list.Add(-100);
+            Assert.IsFalse(list.IsEmpty());
+            Assert.IsTrue(list.Contains(-100));
+            Assert.AreEqual(1, list.Count);
+        }
+
+        [TestMethod]
+        public void AddTestManyElements()
+        {
+            list.Add(3);
+            list.Add(-4);
+            list.Add(0);
+            list.Add(2);
+            list.Remove(-4);
+            Assert.AreEqual(3, list.Count);
+            Assert.IsFalse(list.IsEmpty());
+            Assert.IsTrue(list.Contains(3));
+            Assert.IsFalse(list.Contains(-4));
+            Assert.IsTrue(list.Contains(0));
+            Assert.IsTrue(list.Contains(2));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void InsertTestEmptyList()
+        {
+            list.Insert(1, 3);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void InsertTestInvalidPosition()
+        {
+            list.Insert(0, -25);
+            list.Insert(2, 22);
+        }
+
+        [TestMethod]
+        public void InsertTest()
+        {
+            list.Insert(0, 0);
+            list.Insert(1, -1);
+            list.Insert(1, -1);
+            list.Insert(2, -2);
+            list.Insert(3, -3);
+            list.Insert(4, -4);
+            list.Insert(5, -5);
+            list.Remove(-1);
+            list.Remove(-3);
+            Assert.AreEqual(0, list.IndexOf(0));
+            Assert.AreEqual(1, list.IndexOf(-2));
+            Assert.AreEqual(2, list.IndexOf(-4));
+            Assert.AreEqual(3, list.IndexOf(-5));
+            Assert.AreEqual(4, list.IndexOf(-1));
+            Assert.IsFalse(list.Contains(-3));        
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EmptyListException))]
+        public void RemoveTestEmptyList()
+        {
+            list.Remove(-2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ElementNotFoundException))]
+        public void RemoveTestTryingToRemoveElementThatIsNotInTheList()
+        {
+            list.Add(-7);
+            list.Remove(7);
+        }
+
+        [TestMethod]
+        public void RemoveTest()
+        {
+            list.Add(3);
+            list.Add(-4);
+            list.Add(0);
+            list.Add(2);
+            list.Remove(-4);
+            Assert.IsTrue(list.Contains(3));
+            Assert.IsFalse(list.Contains(-4));
+            Assert.IsTrue(list.Contains(0));
+            Assert.IsTrue(list.Contains(2));
+        }
     }
 }

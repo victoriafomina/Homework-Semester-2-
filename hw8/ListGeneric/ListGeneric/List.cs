@@ -152,7 +152,6 @@ namespace ListGeneric
         public void Add(T data)
         {
             Insert(count, data);
-            ++count;
         }
 
         /// <summary>
