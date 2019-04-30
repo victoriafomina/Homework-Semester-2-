@@ -50,12 +50,11 @@ namespace ListGeneric
         /// Checks if element is in the list.
         /// </summary>
         /// <param name="data">Element to check.</param>
-        /// <exception cref="EmptyListException"Thrown when list is empty.></exception>
         public bool Contains(T data)
         {
             if (IsEmpty())
             {
-                throw new EmptyListException($"List is empty!!! Invalid operation!\n");
+                return false;
             }
             var temp = head;
             while (temp != null)
@@ -203,17 +202,15 @@ namespace ListGeneric
         /// Removes the first entry of the element.
         /// </summary>
         /// <param name="data">Element to remove.</param>
-        /// <exception cref="EmptyListException"Thrown when list is empty.
-        /// <exception cref="ElementNotFoundException"Thrown when element is not in the list.></exception>
         public bool Remove(T data)
         {
             if (IsEmpty())
             {
-                throw new EmptyListException($"List is empty!!! Invalid operation!\n");
+                return false;
             }
             if (!Contains(data))
             {
-                throw new ElementNotFoundException($"Element was not found in the list! Invalid operation!\n");
+                return false;
             }
             RemoveAt(IndexOf(data));
             return true;

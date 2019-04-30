@@ -62,10 +62,9 @@ namespace List.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyListException))]
         public void ContainsTestEmptyList()
         {
-            list.Contains(-3);
+            Assert.IsFalse(list.Contains(-3));
         }
 
         [TestMethod]
@@ -203,18 +202,16 @@ namespace List.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyListException))]
         public void RemoveTestEmptyList()
         {
-            list.Remove(-2);
+            Assert.IsFalse(list.Remove(-2));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementNotFoundException))]
         public void RemoveTestTryingToRemoveElementThatIsNotInTheList()
         {
             list.Add(-7);
-            list.Remove(7);
+            Assert.IsFalse(list.Remove(7));
         }
 
         [TestMethod]
