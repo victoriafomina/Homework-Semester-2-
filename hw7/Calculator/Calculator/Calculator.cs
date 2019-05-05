@@ -12,8 +12,6 @@ namespace Calculator
 {
     public partial class Calculator : Form
     {
-        private double result = 0;
-
         public Calculator()
         {
             InitializeComponent();
@@ -34,12 +32,13 @@ namespace Calculator
             textBoxExpression.Text += "0";
         }
 
-        private void CalculateExpression(double operandLeft, char operation, double operandRight)
+        private double CalculateExpression(double operandLeft, char operation, double operandRight)
         {
+            double result;
             switch (operation)
             {
                 case '+':
-                    result = operandLeft / operandRight;
+                    result = operandLeft + operandRight;
                     break;
                 case '-':
                     result = operandLeft - operandRight;
@@ -59,6 +58,7 @@ namespace Calculator
                 default:
                     throw new ArgumentException("Argument \"char operation\" is not operation!");
             }
+            return result;
         }
 
         private bool IsOperator(char operation)
@@ -110,21 +110,22 @@ namespace Calculator
             ParseLeftOperandToDouble(out operandLeft);
             ParseRightOperandToDouble(out operandRight);
 
+            double result;
             if (textBoxExpression.Text.Contains('+'))
             {
-                CalculateExpression(operandLeft, '+', operandRight);
+                result = CalculateExpression(operandLeft, '+', operandRight);
             }
             else if (textBoxExpression.Text.Contains('-'))
             {
-                CalculateExpression(operandLeft, '-', operandRight);
+                result = CalculateExpression(operandLeft, '-', operandRight);
             }
             else if (textBoxExpression.Text.Contains('*'))
             {
-                CalculateExpression(operandLeft, '*', operandRight);
+                result = CalculateExpression(operandLeft, '*', operandRight);
             }
             else
             {
-                CalculateExpression(operandLeft, '/', operandRight);
+                result = CalculateExpression(operandLeft, '/', operandRight);
             }
             int lastPositionOfTheRightOperand = RightOperandLastPosition();
             textBoxExpression.Text = textBoxExpression.Text.Remove(0, lastPositionOfTheRightOperand + 1);
@@ -196,17 +197,11 @@ namespace Calculator
             {
                 if (!textBoxExpression.Text.Contains(',') && textBoxExpression.Text[0] == '0')
                 {
-                    ClearTextBoxExpression();
+                    textBoxExpression.Clear();
                 }
             }
 
             NumeralButtonWasPressed(sender);
-        }
-
-        private void ClearTextBoxExpression()
-        {
-            textBoxExpression.Clear();
-            result = 0;
         }
 
         private void Button0_Click(object sender, EventArgs e)
@@ -263,12 +258,14 @@ namespace Calculator
         {
             if (textBoxExpression.Text.Count() == 0)
             {
-                textBoxExpression.Text += "0";
+                textBoxExpression.Text += "0" + ",";
             }
             else if (false)
             {
 
             }
+
+            
         }
 
         private void ButtonDivide_Click(object sender, EventArgs e)
@@ -311,7 +308,7 @@ namespace Calculator
 
         private void ButtonClear_Click(object sender, EventArgs e)
         {
-            ClearTextBoxExpression();
+            textBoxExpression.Clear();
         }
 
         private void Calculator_Load(object sender, EventArgs e)
