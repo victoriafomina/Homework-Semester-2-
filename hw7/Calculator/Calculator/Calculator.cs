@@ -185,7 +185,7 @@ namespace Calculator
                 int posOfTheLastSpace = textBoxExpression.Text.LastIndexOf(' ');
 
                 // remove insignificant zero in the beginning of the right operand
-                if (posOfTheLastSpace < textBoxExpression.Text.Count() - 1 && textBoxExpression.Text[posOfTheLastSpace - 1] == '0' &&
+                if (posOfTheLastSpace < textBoxExpression.Text.Count() - 1 && textBoxExpression.Text[posOfTheLastSpace + 1] == '0' &&
                         textBoxExpression.Text.Count() == posOfTheLastSpace + 2)
                 {
                     textBoxExpression.Text = textBoxExpression.Text.Remove(textBoxExpression.Text.Count() - 1);
