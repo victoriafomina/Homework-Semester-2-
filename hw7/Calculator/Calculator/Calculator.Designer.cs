@@ -31,7 +31,7 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonDivide = new System.Windows.Forms.Button();
             this.buttonMultiply = new System.Windows.Forms.Button();
-            this.buttonSubstract = new System.Windows.Forms.Button();
+            this.buttonMinus = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -81,16 +81,16 @@
             this.buttonMultiply.UseVisualStyleBackColor = true;
             this.buttonMultiply.Click += new System.EventHandler(this.ButtonMultiply_Click);
             // 
-            // buttonSubstract
+            // buttonMinus
             // 
-            this.buttonSubstract.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSubstract.Location = new System.Drawing.Point(306, 244);
-            this.buttonSubstract.Name = "buttonSubstract";
-            this.buttonSubstract.Size = new System.Drawing.Size(75, 40);
-            this.buttonSubstract.TabIndex = 3;
-            this.buttonSubstract.Text = "-";
-            this.buttonSubstract.UseVisualStyleBackColor = true;
-            this.buttonSubstract.Click += new System.EventHandler(this.ButtonSubstract_Click);
+            this.buttonMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonMinus.Location = new System.Drawing.Point(306, 244);
+            this.buttonMinus.Name = "buttonMinus";
+            this.buttonMinus.Size = new System.Drawing.Size(75, 40);
+            this.buttonMinus.TabIndex = 3;
+            this.buttonMinus.Text = "-";
+            this.buttonMinus.UseVisualStyleBackColor = true;
+            this.buttonMinus.Click += new System.EventHandler(this.ButtonMinus_Click);
             // 
             // button7
             // 
@@ -263,7 +263,7 @@
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
-            this.Controls.Add(this.buttonSubstract);
+            this.Controls.Add(this.buttonMinus);
             this.Controls.Add(this.buttonMultiply);
             this.Controls.Add(this.buttonDivide);
             this.Controls.Add(this.buttonClear);
@@ -281,7 +281,7 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonDivide;
         private System.Windows.Forms.Button buttonMultiply;
-        private System.Windows.Forms.Button buttonSubstract;
+        private System.Windows.Forms.Button buttonMinus;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
