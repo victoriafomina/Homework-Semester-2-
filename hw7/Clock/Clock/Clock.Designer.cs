@@ -1,5 +1,8 @@
 ﻿namespace Clock
 {
+    /// <summary>
+    /// Class that implements a simple clock.
+    /// </summary>
     partial class Clock
     {
         /// <summary>

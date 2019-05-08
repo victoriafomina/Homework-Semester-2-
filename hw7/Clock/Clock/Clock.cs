@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace Clock
 {
+    /// <summary>
+    /// Class that implements a simple clock.
+    /// </summary>
     public partial class Clock : Form
     {
+        /// <summary>
+        /// Initializes an object of the Clock class.
+        /// </summary>
         public Clock()
         {
             InitializeComponent();
