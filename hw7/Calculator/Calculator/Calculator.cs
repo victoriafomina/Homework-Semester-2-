@@ -51,9 +51,12 @@ namespace Calculator
                     {
                         textBoxExpression.Clear();
                         textBoxExpression.Text += "Division by zero is not allowed";
-                        textBoxExpression.Clear();
+                        result = 0;
                     }
-                    result = operandLeft / operandRight;
+                    else
+                    {
+                        result = operandLeft / operandRight;
+                    }
                     break;
                 default:
                     throw new ArgumentException("Argument \"char operation\" is not operation!");
@@ -103,7 +106,7 @@ namespace Calculator
             return lastPosOfTheRightOperand;
         }
 
-        private void TextBoxExpressionIncludesAnOperatorWithTwoOperands()
+        private void TextBoxExpressionIncludesAnOperatorWithTwoOperandsCalculate()
         {
             double operandLeft;
             double operandRight;
@@ -137,8 +140,8 @@ namespace Calculator
             // check if in the textBoxExpression (not to count spaces) could be an operator
             if (textBoxExpression.Text.Count() > 2)
             {
-                int position = textBoxExpression.Text.Count() - 2;
-                char symbolToCheckIfIsOperator = textBoxExpression.Text[position];
+                int position = textBoxExpression.Text.Count() - 1;
+                char symbolToCheckIfIsOperator = textBoxExpression.Text[position - 1];
 
                 // if the last element is an operator then remove it from theTextBoxExpression
                 if (IsOperator(symbolToCheckIfIsOperator))
@@ -156,7 +159,7 @@ namespace Calculator
             if (textBoxExpression.Text.Contains('+') || textBoxExpression.Text.Contains('-') || textBoxExpression.Text.Contains('*') ||
                     textBoxExpression.Text.Contains('/'))
             {
-                TextBoxExpressionIncludesAnOperatorWithTwoOperands();
+                TextBoxExpressionIncludesAnOperatorWithTwoOperandsCalculate();
             }
 
             // the situation when the operator was pressed when the textBoxExpression was empty
@@ -258,14 +261,56 @@ namespace Calculator
         {
             if (textBoxExpression.Text.Count() == 0)
             {
-                textBoxExpression.Text += "0" + ",";
+                textBoxExpression.Text += "0,";
             }
-            else if (false)
+            // the last element (not to count spaces) is an operator
+            else if (textBoxExpression.Text.Count() > 3 && IsOperator(textBoxExpression.Text[textBoxExpression.Text.Count() - 2]))
             {
-
+                textBoxExpression.Text += "0,";
             }
-
-            
+            // check if the left operator already has a comma
+            else if (!textBoxExpression.Text.Contains('+') && !textBoxExpression.Text.Contains('-') && !textBoxExpression.Text.Contains('*')
+                    && !textBoxExpression.Text.Contains('/'))
+            {
+                if (!textBoxExpression.Text.Contains(','))
+                {
+                    textBoxExpression.Text += ',';
+                }
+            }
+            // check if the right operator already has a comma
+            else
+            {
+                int posOfTheOperator;
+                if (textBoxExpression.Text.Contains('+'))
+                {
+                    posOfTheOperator = textBoxExpression.Text.IndexOf('+');
+                }
+                else if (textBoxExpression.Text.Contains('-'))
+                {
+                    posOfTheOperator = textBoxExpression.Text.IndexOf('-');
+                }
+                else if (textBoxExpression.Text.Contains('*'))
+                {
+                    posOfTheOperator = textBoxExpression.Text.IndexOf('*');
+                }
+                else
+                {
+                    posOfTheOperator = textBoxExpression.Text.IndexOf('/');
+                }
+                bool flagTheRightOperatorHasAComma = false;
+                for (int i = posOfTheOperator + 2; i < textBoxExpression.Text.Count(); ++i)
+                {
+                    if (textBoxExpression.Text[i] == ',')
+                    {
+                        flagTheRightOperatorHasAComma = true;
+                        break;
+                    }
+                }
+                if (!flagTheRightOperatorHasAComma)
+                {
+                    textBoxExpression.Text += ',';
+                }
+            }            
         }
 
         private void ButtonDivide_Click(object sender, EventArgs e)
@@ -297,13 +342,13 @@ namespace Calculator
             else if (IsOperator(textBoxExpression.Text[textBoxExpression.Text.Count() - 2]))
             {
                 textBoxExpression.Text += "0";
-                TextBoxExpressionIncludesAnOperatorWithTwoOperands();
+                TextBoxExpressionIncludesAnOperatorWithTwoOperandsCalculate();
             }
             else if (char.IsDigit(textBoxExpression.Text[textBoxExpression.Text.Count() - 1]))
             {
                 // lalala
             }
-
+            
         }
 
         private void ButtonClear_Click(object sender, EventArgs e)
