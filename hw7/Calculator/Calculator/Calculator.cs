@@ -339,16 +339,20 @@ namespace Calculator
             {
                 textBoxExpression.Text += "0";
             }
-            else if (IsOperator(textBoxExpression.Text[textBoxExpression.Text.Count() - 2]))
+            else if (textBoxExpression.Text.Count() > 3 && IsOperator(textBoxExpression.Text[textBoxExpression.Text.Count() - 2]))
             {
-                textBoxExpression.Text += "0";
+                // duplicate the left operator if there is no right one
+                textBoxExpression.Text += textBoxExpression.Text.Substring(0, textBoxExpression.Text.Count() - 3);
                 TextBoxExpressionIncludesAnOperatorWithTwoOperandsCalculate();
             }
             else if (char.IsDigit(textBoxExpression.Text[textBoxExpression.Text.Count() - 1]))
             {
-                // lalala
-            }
-            
+                if (textBoxExpression.Text.Contains('+') || textBoxExpression.Text.Contains('-') || textBoxExpression.Text.Contains('*')
+                        || textBoxExpression.Text.Contains('/'))
+                {
+                    TextBoxExpressionIncludesAnOperatorWithTwoOperandsCalculate();
+                }
+            }            
         }
 
         private void ButtonClear_Click(object sender, EventArgs e)
