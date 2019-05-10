@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FinalTest
 {
@@ -8,6 +7,9 @@ namespace FinalTest
     {
         private SortedSet set;
 
+        /// <summary>
+        /// Initializes an object of the class ListApplication.
+        /// </summary>
         public ListApplication(string[] array)
         {
             if (array == null)
@@ -47,6 +49,11 @@ namespace FinalTest
                         }
                         list.Add((array[i])[j]);
                         flagNotEmptyList = true;
+                        if (j == array[i].Length - 1)
+                        {
+                            set.Add(list);
+                            flagNotEmptyList = false;
+                        }
                     }
                 }
             }
@@ -57,6 +64,9 @@ namespace FinalTest
             return set.ToString();
         }
 
+        /// <summary>
+        /// Starts executing the application.
+        /// </summary>
         public void Run()
         {
             Console.WriteLine(ToString());
