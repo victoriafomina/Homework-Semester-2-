@@ -242,7 +242,6 @@
             this.textBoxExpression.ReadOnly = true;
             this.textBoxExpression.Size = new System.Drawing.Size(346, 26);
             this.textBoxExpression.TabIndex = 19;
-            this.textBoxExpression.TextChanged += new System.EventHandler(this.TextBoxExpression_TextChanged);
             // 
             // Calculator
             // 
@@ -271,7 +270,6 @@
             this.ForeColor = System.Drawing.SystemColors.WindowText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Calculator";
-            this.Load += new System.EventHandler(this.Calculator_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

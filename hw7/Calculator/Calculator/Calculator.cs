@@ -34,7 +34,7 @@ namespace Calculator
 
         private double CalculateExpression(double operandLeft, char operation, double operandRight)
         {
-            double result;
+            double result = 0;
             switch (operation)
             {
                 case '+':
@@ -47,15 +47,13 @@ namespace Calculator
                     result = operandLeft * operandRight;
                     break;
                 case '/':
-                    if (operandRight == 0)
-                    {
-                        textBoxExpression.Clear();
-                        textBoxExpression.Text += "Division by zero is not allowed";
-                        result = 0;
-                    }
-                    else
+                    try
                     {
                         result = operandLeft / operandRight;
+                    }
+                    catch(DivideByZeroException)
+                    {
+                        textBoxExpression.Text = "Division by zero is not allowed";
                     }
                     break;
                 default:
@@ -131,8 +129,11 @@ namespace Calculator
                 result = CalculateExpression(operandLeft, '/', operandRight);
             }
             int lastPositionOfTheRightOperand = RightOperandLastPosition();
-            textBoxExpression.Text = textBoxExpression.Text.Remove(0, lastPositionOfTheRightOperand + 1);
-            textBoxExpression.Text = result.ToString() + textBoxExpression.Text;
+            if (!(textBoxExpression.Text == "Division by zero is not allowed"))
+            {
+                textBoxExpression.Text = textBoxExpression.Text.Remove(0, lastPositionOfTheRightOperand + 1);
+                textBoxExpression.Text = result.ToString() + textBoxExpression.Text;
+            }
         }
 
         private void RemovesTheLastElementIfIsAnOperator()
@@ -358,16 +359,6 @@ namespace Calculator
         private void ButtonClear_Click(object sender, EventArgs e)
         {
             textBoxExpression.Clear();
-        }
-
-        private void Calculator_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBoxExpression_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
