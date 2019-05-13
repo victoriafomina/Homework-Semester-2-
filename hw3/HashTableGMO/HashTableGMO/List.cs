@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HashTableGMO
 {
@@ -226,5 +224,4 @@ namespace HashTableGMO
             return false;
         }
     }
-}
 }

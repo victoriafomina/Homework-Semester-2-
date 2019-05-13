@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HashTableGMO
+﻿namespace HashTableGMO
 {
     public class Hashing : IHashing
     {
