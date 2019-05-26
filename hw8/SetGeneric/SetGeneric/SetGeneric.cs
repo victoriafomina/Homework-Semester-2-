@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -54,31 +55,36 @@ namespace SetGeneric
             {
                 return false;
             }
-            return ContainsRecursion(head, item);
-        }
 
-        private bool ContainsRecursion(Node currentNode, T item)
-        {
-            if (currentNode.Item.Equals(item))
-            {
-                return true;
-            }
-            else if (currentNode.Item.CompareTo(item) < 0 && currentNode.LeftChild == null)
-            {
-                return false;
-            }
-            else if (currentNode.Item.CompareTo(item) > 0 && currentNode.RightChild == null)
+            if (count == 0)
             {
                 return false;
             }
 
-            if (currentNode.LeftChild != null)
+            var currentNode = head;
+
+            while (true)
             {
-                return ContainsRecursion(currentNode.LeftChild, item);
-            }
-            if (currentNode.RightChild != null)
-            {
-                return ContainsRecursion(currentNode.RightChild, item);
+                if (currentNode.Item.CompareTo(item) > 0)
+                {
+                    if (currentNode.LeftChild == null)
+                    {
+                        return false;
+                    }
+                    currentNode = currentNode.LeftChild;
+                }
+                else if (currentNode.Item.CompareTo(item) < 0)
+                {
+                    if (currentNode.RightChild == null)
+                    {
+                        return false;
+                    }
+                    currentNode = currentNode.RightChild;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
 
@@ -101,7 +107,9 @@ namespace SetGeneric
             {
                 AddRecursion(head, item);
             }
+
             ++count;
+
             return true;
         }
 
@@ -128,6 +136,9 @@ namespace SetGeneric
             }
         }
 
+        /// <summary>
+        /// Removes an element from the Set (if the element is in the set).
+        /// </summary>
         public bool Remove(T item)
         {
             if (head == null)
@@ -157,6 +168,52 @@ namespace SetGeneric
         }
 
         /// <summary>
+        /// Getting a set item by index.
+        /// </summary>
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= count || count == 0)
+                {
+                    throw new IndexOutOfRangeException("Invalid index!\n");
+                }
+                return TreeTraversal(index);
+            }
+        }
+
+        private T TreeTraversal(int index)
+        {
+            var currentNode = head;
+            int currentIndex = 0;
+            while (true)
+            {
+                if (CheckWeHaveGotNeededElement(index, currentIndex))
+                {
+                    return currentNode.Item;
+                }
+
+                if (currentNode.LeftChild != null)
+                {
+                    currentNode = currentNode.LeftChild;
+                    ++currentIndex;
+                    if (CheckWeHaveGotNeededElement(index, currentIndex))
+                    {
+                        return currentNode.Item;
+                    }
+                }
+                else if (currentNode.RightChild != null)
+                {
+                    currentNode = currentNode.RightChild;
+                    ++currentIndex;
+                }
+            }
+        }
+
+        private bool CheckWeHaveGotNeededElement(int searching, int currentPosition)
+                => searching == currentPosition;
+
+        /// <summary>
         /// Copies the elements of the Set to an Array, starting at a particular Array index.
         /// </summary>
         /// <param name="destination">The one-dimensional Array that is the destination of the elements copied from Set. 
@@ -182,7 +239,63 @@ namespace SetGeneric
                 throw new ArgumentException("The number of elements in the Set is greater than the available space " +
                         "from the index to the end of destination array\n");
             }
-            
+            // implementation
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new Iterator(this);
+        }
+
+        private class Iterator : IEnumerator<T>
+        {
+            private Set<T> tree;
+            private int currentIndex;
+
+            public Iterator(Set<T> tree)
+            {
+                this.tree = tree;
+                currentIndex = -1;
+            }
+
+            public T Current
+            {
+                get
+                {
+                    if (currentIndex < 0 || currentIndex >= tree.Count)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+
+                    return tree[currentIndex];
+                }
+            }
+
+            object IEnumerator.Current => Current;
+
+            public bool MoveNext()
+            {
+                if (currentIndex < tree.Count)
+                {
+                    ++currentIndex;
+                }
+
+                return currentIndex < tree.Count;
+            }
+
+            public void Reset()
+            {
+                currentIndex = -1;
+            }
+
+            public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private T Traversal(Node currentNode, T[] destination, ref int copyToPos)
