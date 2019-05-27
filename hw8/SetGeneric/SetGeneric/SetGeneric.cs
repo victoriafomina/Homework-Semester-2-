@@ -112,6 +112,15 @@ namespace SetGeneric
             return true;
         }
 
+        /// <summary>
+        /// Adds an element to the current set and returns a value to indicate if the element was successfully added.
+        /// </summary>
+        /// <param name="item">Element to add.</param>
+        void ICollection<T>.Add(T item)
+        {
+            Add(item);
+        }
+
         private void AddRecursion(Node currentNode, T item)
         {
             if (currentNode.Item.CompareTo(item) < 0 && currentNode.LeftChild != null)
@@ -153,6 +162,8 @@ namespace SetGeneric
             }
 
             RemoveRecursion(head, item);
+
+            --count;
 
             return true;
         }
@@ -262,6 +273,7 @@ namespace SetGeneric
         {
             var currentNode = head;
             int currentIndex = 0;
+
             while (true)
             {
                 if (CheckWeHaveGotNeededElement(index, currentIndex))
@@ -306,38 +318,58 @@ namespace SetGeneric
             {
                 throw new ArgumentOutOfRangeException($"Invalid index \"copyingStartsFrom\" {copyingStartsFrom}!!!\n");
             }
+
             if (head == null)
             {
                 throw new EmptySetException("The set is empty!!! Invalid operation.\n");
             }
+
             if (destination.Length < count - copyingStartsFrom)
             {
                 throw new ArgumentException("The number of elements in the Set is greater than the available space " +
                         "from the index to the end of destination array\n");
             }
-            // implementation
+
+            int index = copyingStartsFrom;
+            foreach (var element in this)
+            {
+                destination[index] = element;
+                ++index;
+            }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator<T> GetEnumerator()
+        /// <returns>an enumerator that iterates through a collection.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return new Iterator(this);
         }
 
+        /// <returns>an enumerator that iterates through a collection.</returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Supports a simple iteration over a generic collection.
+        /// </summary>
         private class Iterator : IEnumerator<T>
         {
             private Set<T> tree;
             private int currentIndex;
 
+            /// <summary>
+            /// Initializes an object of the class Iterator.
+            /// </summary>
             public Iterator(Set<T> tree)
             {
                 this.tree = tree;
                 currentIndex = -1;
             }
 
+            /// <summary>
+            /// Gets the element in the collection at the current position of the enumerator.
+            /// </summary>
             public T Current
             {
                 get
@@ -353,6 +385,9 @@ namespace SetGeneric
 
             object IEnumerator.Current => Current;
 
+            /// <summary>
+            /// Advances the enumerator to the next element of the collection.
+            /// </summary>
             public bool MoveNext()
             {
                 if (currentIndex < tree.Count)
@@ -363,11 +398,17 @@ namespace SetGeneric
                 return currentIndex < tree.Count;
             }
 
+            /// <summary>
+            /// Sets the enumerator to its initial position, which is before the first element in the collection.
+            /// </summary>
             public void Reset()
             {
                 currentIndex = -1;
             }
 
+            /// <summary>
+            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            /// </summary>
             public void Dispose()
             {
                 throw new NotImplementedException();
@@ -388,14 +429,40 @@ namespace SetGeneric
             return currentNode.Item;
         }
 
+        /// <summary>
+        /// Removes all elements in the specified collection from the current set.
+        /// </summary>
+        /// <param name="other">The collection of items to remove from the set.</param>
         public void ExceptWith(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
+            foreach (var element in other)
+            {
+                Remove(element);
+            }
         }
 
+        /// <summary>
+        /// Modifies the current set so that it contains only elements that are also in a specified collection.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current set.</param>
         public void IntersectWith(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
+            var intersectionSet = new Set<T>();
+
+            foreach (var element in other)
+            {
+                if (Contains(element))
+                {
+                    intersectionSet.Add(element);
+                }
+            }
+
+            Clear();
+
+            foreach (var element in intersectionSet)
+            {
+                Add(element);
+            }
         }
 
         /// <summary>
@@ -526,24 +593,37 @@ namespace SetGeneric
             return count == numberOfElementsInCollection;
         }
 
+        /// <summary>
+        /// Modifies the current set so that it contains only elements that are present either in the current 
+        /// set or in the specified collection, but not both.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current set.</param>
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
+            foreach (var element in other)
+            {
+                if (Contains(element))
+                {
+                    Remove(element);
+                }
+                else
+                {
+                    Add(element);
+                }
+            }
         }
 
+        /// <summary>
+        /// Modifies the current set so that it contains all elements that are present in the current set, 
+        /// in the specified collection, or in both.
+        /// </summary>
+        /// <param name="other">The collection to union with.</param>
         public void UnionWith(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
-        }
-
-        void ICollection<T>.Add(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
+            foreach (var element in other)
+            {
+                Add(element);
+            }
         }
 
         /// <summary>
