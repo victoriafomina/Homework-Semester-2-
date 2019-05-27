@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SetGeneric
 {
@@ -385,7 +384,133 @@ namespace SetGeneric
             {
                 return Traversal(currentNode.RightChild, destination, ref copyToPos);
             }
+
             return currentNode.Item;
+        }
+
+        public void ExceptWith(IEnumerable<T> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IntersectWith(IEnumerable<T> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsProperSubsetOf(IEnumerable<T> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsProperSupersetOf(IEnumerable<T> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Determines whether the current set is a proper (strict) subset of a specified other.
+        /// </summary>
+        /// <param name="other">The other to compare to the current set.</param>
+        public bool IsSubsetOf(IEnumerable<T> other)
+        {
+            int countEqualElements = 0;
+
+            foreach (var element in other)
+            {
+                if (Contains(element))
+                {
+                    ++countEqualElements;
+                }
+            }
+
+            return count == countEqualElements;
+        }
+
+        /// <summary>
+        /// Determines whether the current set is a proper (strict) superset of a specified collection.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current set.</param>
+        /// <returns>true if the current set is a proper superset of other; otherwise, false.</returns>
+        public bool IsSupersetOf(IEnumerable<T> other)
+        {
+            int countEqualElementsInOther = 0;
+            int numberOfElementsInCollection = 0;
+
+            foreach (var element in other)
+            {
+                if (Contains(element))
+                {
+                    ++countEqualElementsInOther;
+                }
+                ++numberOfElementsInCollection;
+            }
+
+            return countEqualElementsInOther == numberOfElementsInCollection;
+        }
+
+        /// <summary>
+        /// Determines whether the current set overlaps with the specified collection.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current set.</param>
+        /// <returns>true if the current set and other share at least one common element; otherwise, false.</returns>
+        public bool Overlaps(IEnumerable<T> other)
+        {
+            if (count == 0)
+            {
+                return false;
+            }
+
+            foreach (var element in other)
+            {
+                if (Contains(element))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether the current set and the specified other contain the same elements.
+        /// </summary>
+        /// <param name="other">The other to compare to the current set.</param>
+        /// <returns>true if the current set is equal to other; otherwise, false.</returns>
+        public bool SetEquals(IEnumerable<T> other)
+        {
+            int numberOfElementsInCollection = 0;
+
+            foreach (var element in other)
+            {
+                if (!Contains(element))
+                {
+                    return false;
+                }
+                ++numberOfElementsInCollection;
+            }
+
+            return count == numberOfElementsInCollection;
+        }
+
+        public void SymmetricExceptWith(IEnumerable<T> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnionWith(IEnumerable<T> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ICollection<T>.Add(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
