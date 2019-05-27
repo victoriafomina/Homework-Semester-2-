@@ -398,20 +398,53 @@ namespace SetGeneric
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Determines whether the current set is a proper (strict) subset of a specified collection.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current set.</param>
+        /// <returns>true if the current set is a proper subset of other; otherwise, false.</returns>
         public bool IsProperSubsetOf(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
-        }
+            if (!IsSubsetOf(other))
+            {
+                return false;
+            }
 
-        public bool IsProperSupersetOf(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
+            return NumberOfElementsInCollection(other) != count;
         }
 
         /// <summary>
-        /// Determines whether the current set is a proper (strict) subset of a specified other.
+        /// Determines whether the current set is a superset of a specified collection.
         /// </summary>
-        /// <param name="other">The other to compare to the current set.</param>
+        /// <param name="other">The collection to compare to the current set.</param>
+        /// <returns>true if the current set is a superset of other; otherwise, false.</returns>
+        public bool IsProperSupersetOf(IEnumerable<T> other)
+        {
+            if (!IsSupersetOf(other))
+            {
+                return false;
+            }
+
+            return NumberOfElementsInCollection(other) != count;
+        }
+
+        private int NumberOfElementsInCollection(IEnumerable<T> other)
+        {
+            int countElementsInOther = 0;
+
+            foreach (var element in other)
+            {
+                ++countElementsInOther;
+            }
+
+            return countElementsInOther;
+        }
+
+        /// <summary>
+        /// Determines whether the current set is a subset of a specified other.
+        /// </summary>
+        /// <param name="other">The collection to compare to the current set.</param>
+        /// <returns>true if the current set is a subset of other; otherwise, false.</returns>
         public bool IsSubsetOf(IEnumerable<T> other)
         {
             int countEqualElements = 0;
@@ -428,10 +461,10 @@ namespace SetGeneric
         }
 
         /// <summary>
-        /// Determines whether the current set is a proper (strict) superset of a specified collection.
+        /// Determines whether the current set is a superset of a specified collection.
         /// </summary>
         /// <param name="other">The collection to compare to the current set.</param>
-        /// <returns>true if the current set is a proper superset of other; otherwise, false.</returns>
+        /// <returns>true if the current set is a superset of other; otherwise, false.</returns>
         public bool IsSupersetOf(IEnumerable<T> other)
         {
             int countEqualElementsInOther = 0;
