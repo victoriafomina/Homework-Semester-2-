@@ -128,10 +128,12 @@ namespace SetGeneric
                 if (currentNode.Item.CompareTo(item) < 0)
                 {
                     currentNode.LeftChild = new Node(item);
+                    currentNode.Parent = currentNode;
                 }
                 else
                 {
                     currentNode.RightChild = new Node(item);
+                    currentNode.Parent = currentNode;
                 }
             }
         }
@@ -141,21 +143,96 @@ namespace SetGeneric
         /// </summary>
         public bool Remove(T item)
         {
-            if (head == null)
-            {
-                return false;
-            }
             if (!Contains(item))
             {
                 return false;
             }
 
+            if (Count == 1)
+            {
+                head = null;
+            }
+
+            RemoveRecursion(head, item);
+
             return true;
         }
 
-        public void RemoveRecursion(Node currentNode, T item)
+        private void RemoveRecursion(Node currentNode, T item)
         {
+            if (currentNode.Item.CompareTo(item) > 0)
+            {
+                RemoveRecursion(currentNode.LeftChild, item);
+            }
+            else if (currentNode.Item.CompareTo(item) < 0)
+            {
+                RemoveRecursion(currentNode.RightChild, item);
+            }
+            else
+            {
+                if (currentNode.LeftChild == null || currentNode.RightChild == null)
+                {
+                    RemoveWhenChildIsNull(currentNode);
+                }
+                else
+                {
+                    currentNode.Item = MaximumInSubtree(currentNode);
+                    RemoveRecursion(currentNode.LeftChild, currentNode.Item);
+                }
+            }
+        }
 
+        private T MaximumInSubtree(Node current)
+        {
+            if (current.RightChild != null)
+            {
+                return MaximumInSubtree(current.RightChild);
+            }
+            else
+            {
+                return current.RightChild.Item;
+            }
+        }
+
+        private void RemoveWhenChildIsNull(Node NodeToRemove)
+        {
+            if (NodeToRemove.LeftChild == null && NodeToRemove.RightChild == null)
+            {
+                if (NodeToRemove == NodeToRemove.Parent.LeftChild)
+                {
+                    NodeToRemove.Parent.LeftChild = null;
+                }
+                else
+                {
+                    NodeToRemove.Parent.RightChild = null;
+                }
+            }
+            else if (NodeToRemove.LeftChild == null)
+            {
+                if (NodeToRemove == NodeToRemove.Parent.LeftChild)
+                {
+                    NodeToRemove.RightChild.Parent = NodeToRemove.Parent;
+                    NodeToRemove.Parent.LeftChild = NodeToRemove.RightChild;
+                }
+                else
+                {
+                    NodeToRemove.RightChild.Parent = NodeToRemove.Parent;
+                    NodeToRemove.Parent.RightChild = NodeToRemove.RightChild;
+                }
+            }
+            else
+            {
+                if (NodeToRemove == NodeToRemove.Parent.LeftChild)
+                {
+                    NodeToRemove.LeftChild.Parent = NodeToRemove.Parent;
+                    NodeToRemove.Parent.LeftChild = NodeToRemove.LeftChild;
+                }
+                else
+                {
+                    NodeToRemove.LeftChild.Parent = NodeToRemove.Parent;
+                    NodeToRemove.Parent.RightChild = NodeToRemove.LeftChild;
+                }
+            }
         }
 
         /// <summary>
