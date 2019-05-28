@@ -259,10 +259,10 @@ namespace ListGeneric
         /// </summary>
         /// <param name="array">The one-dimensional array that is destination for the elements copied from list.</param>
         /// <param name="index">The zero-based index in array at which copying begins.</param>
-        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.></exception>
-        /// <exception cref="ArgumentException"Thrown when the number of elements in the list is greater that the
-        /// available space in the array.></exception>
-        /// <exception cref="EmptyListException"Thrown when the list is empty></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when the number of elements in the list is greater that the
+        /// available space in the array.</exception>
+        /// <exception cref="EmptyListException">Thrown when the list is empty.</exception>
         public void CopyTo(T[] array, int index)
         {
             if (index < 0 || index >= count)
