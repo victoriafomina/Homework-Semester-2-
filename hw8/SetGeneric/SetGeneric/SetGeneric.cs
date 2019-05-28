@@ -123,17 +123,17 @@ namespace SetGeneric
 
         private void AddRecursion(Node currentNode, T item)
         {
-            if (currentNode.Item.CompareTo(item) < 0 && currentNode.LeftChild != null)
+            if (currentNode.Item.CompareTo(item) > 0 && currentNode.LeftChild != null)
             {
                 AddRecursion(currentNode.LeftChild, item);
             }
-            else if (currentNode.Item.CompareTo(item) > 0 && currentNode.RightChild != null)
+            else if (currentNode.Item.CompareTo(item) < 0 && currentNode.RightChild != null)
             {
                 AddRecursion(currentNode.RightChild, item);
             }
             else
             {
-                if (currentNode.Item.CompareTo(item) < 0)
+                if (currentNode.Item.CompareTo(item) > 0)
                 {
                     currentNode.LeftChild = new Node(item);
                     currentNode.Parent = currentNode;
@@ -200,7 +200,7 @@ namespace SetGeneric
             }
             else
             {
-                return current.RightChild.Item;
+                return current.Item;
             }
         }
 
