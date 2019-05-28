@@ -7,9 +7,25 @@ namespace HashTableGMO
     /// </summary>
     public class HashTable
     {
-        private static int size;
-        private static List<int>[] bucket;
-        IHashing hashing;
+        private List<int>[] bucket;
+        private IHashing hashing;
+        private int count;
+
+        private double LoadFactor => count / bucket.Length;
+
+        private void ReSize()
+        {
+            var newBucket = new List<int>[2 * bucket.Length];
+            foreach (var list in bucket)
+            {
+                for (int i = 0; i < list.Size; ++i)
+                {
+                    int hash = Math.Abs(hashing.HashFunction(i)) % newBucket.Length;
+                    newBucket[hash].PushToPosition(0, hash);
+                }
+            }
+            bucket = newBucket;
+        }
 
         /// <summary>
         /// Initializes an object of the hash table class.
@@ -17,8 +33,8 @@ namespace HashTableGMO
         public HashTable(IHashing hashing)
         {
             this.hashing = hashing;
-            size = 100;
-            bucket = new List<int>[size];
+            count = 0;
+            bucket = new List<int>[100];
             for (int i = 0; i < 100; ++i)
             {
                 bucket[i] = new List<int>();
@@ -31,8 +47,14 @@ namespace HashTableGMO
         /// <param name="value">Value to add.</param>
         public void AddValue(int value)
         {
-            int hash = Math.Abs(hashing.HashFunction(value)) % size;
+            if (LoadFactor >= 1)
+            {
+                ReSize();
+            }
+
+            int hash = Math.Abs(hashing.HashFunction(value)) % bucket.Length;
             bucket[hash].PushToPosition(0, value);
+            ++count;
         }
 
         /// <summary>
@@ -41,24 +63,24 @@ namespace HashTableGMO
         /// <param name="value">Value to delete.</param>
         public void DeleteValue(int value)
         {
-            int hash = Math.Abs(hashing.HashFunction(value)) % size;
+            int hash = Math.Abs(hashing.HashFunction(value)) % bucket.Length;
             int position = bucket[hash].GetPositionByValue(value);
             if (position < 0)
             {
-                throw new InvalidOperationException($"Argument with the value does " +
-                        "not exist {value} value\n");
+                throw new InvalidOperationException($"Argument with the value {value} does " +
+                        "not exist\n");
             }
             bucket[hash].PopFromPosition(position);
+            --count;
         }
 
         /// <summary>
         /// Checks if the element with the value exists.
         /// </summary>
         /// <param name="value">Value to check if exists in tab.</param>
-        /// <returns></returns>
         public bool Exists(int value)
         {
-            int hash = Math.Abs(hashing.HashFunction(value)) % size;
+            int hash = Math.Abs(hashing.HashFunction(value)) % bucket.Length;
             return bucket[hash].Exists(value);
         }
     }
