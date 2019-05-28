@@ -130,12 +130,7 @@ namespace SetGenericTests
             other.Add(1);
             other.Add(2);
 
-            foreach (var element in other)
-            {
-                System.Console.WriteLine(element);
-            }
-
-            // set.ExceptWith(other);
+            set.ExceptWith(other);
 
             Assert.AreEqual(3, set.Count);
             Assert.IsTrue(set.Contains(-5));
@@ -145,7 +140,30 @@ namespace SetGenericTests
 
         // union with tests
         
-        //[TestMethod]
-        //public void UnionWithTestCollec
+        [TestMethod]
+        public void UnionWithTestCollectionsAreNotTheSame()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(1);
+            other.Add(2);
+            other.Add(-5);
+
+            set.UnionWith(other);
+
+            Assert.AreEqual(7, set.Count);
+            Assert.IsTrue(set.Contains(56));
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsTrue(set.Contains(-5));
+            Assert.IsTrue(set.Contains(0));
+            Assert.IsTrue(set.Contains(-3));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(2));
+        }
     }
 }

@@ -435,10 +435,7 @@ namespace SetGeneric
             /// <summary>
             /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             /// </summary>
-            public void Dispose()
-            {
-                throw new NotImplementedException();
-            }
+            public void Dispose() { }
         }
 
         private T Traversal(Node currentNode, T[] destination, ref int copyToPos)
