@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
+﻿using System;
 
 // Примечание: числа во входной строке однозначные
 
@@ -13,7 +9,7 @@ namespace StackBasedCalculator
     /// </summary>
     public class PostfixCalculator
     {
-        IStack<int> stack;
+        private IStack<int> stack;
 
         /// <summary>
         /// Constructor of the class PostfixCalculator.
@@ -34,7 +30,7 @@ namespace StackBasedCalculator
         /// <param name="expression">Expression in postfix form including single
         /// digits and operators.</param>
         /// <returns>Evaluation of postfix expression.</returns>
-        /// <exception cref="FormatException"Thrown when expression is invalid.></exception>
+        /// <exception cref="FormatException">Thrown when expression is invalid.</exception>
         public double Evaluate(string expression)
         {
             for (int i = 0; i < expression.Length; ++i)
@@ -112,9 +108,8 @@ namespace StackBasedCalculator
             return result;
         }
 
-        private bool IsOperator(char symbol)
-        {
-            return symbol == '-' || symbol == '+' || symbol == '/' || symbol == '*';
+        private bool IsOperator(char symbol) 
+                => symbol == '-' || symbol == '+' || symbol == '/' || symbol == '*';
         }
     }
 }

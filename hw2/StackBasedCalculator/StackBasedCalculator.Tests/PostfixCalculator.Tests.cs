@@ -6,7 +6,7 @@ namespace StackBasedCalculator.Tests
     [TestClass]
     public class PostfixCalculatorTests
     {
-        PostfixCalculator calculator;
+        private PostfixCalculator calculator;
 
         [TestInitialize]
         public void Initialize()
