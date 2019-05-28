@@ -15,21 +15,21 @@ namespace StackBasedCalculator.Tests
         }
 
         [TestMethod]
-        public void Test1()
+        public void TestOnePlusOne()
         {
             string expression = "11+";
             Assert.AreEqual(2, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test2()
+        public void TestTwoOperatorsExpession()
         {
             string expression = "23+5*";
             Assert.AreEqual(25, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test3()
+        public void TestAddManyOnes()
         {
             string expression = "11+1+1+";
             Assert.AreEqual(4, calculator.Evaluate(expression));
@@ -37,7 +37,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(DivideByZeroException))]
-        public void Test4()
+        public void TestDivideByZero()
         {
             string expression = "10/";
             calculator.Evaluate(expression);
@@ -45,63 +45,63 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test5()
+        public void TestEmptyExpression()
         {
             string expression = "";
             calculator.Evaluate(expression);
         }
 
         [TestMethod]
-        public void Test6()
+        public void TestTwoOperators()
         {
             string expression = "12*3+";
             Assert.AreEqual(5, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test7()
+        public void TestThreeOperators()
         {
             string expression = "23-2+3*";
             Assert.AreEqual(3, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test8()
+        public void TestShort1()
         {
             string expression = "123*+";
             Assert.AreEqual(7, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test9()
+        public void TestManyTwos()
         {
             string expression = "2222*-+";
 
             Assert.AreEqual(0, calculator.Evaluate(expression));
         }
         [TestMethod]
-        public void Test10()
+        public void TestLongExpression1()
         {
             string expression = "923*+1-";
             Assert.AreEqual(14, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test11()
+        public void TestShort2()
         {
             string expression = "12+0*";
             Assert.AreEqual(0, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test12()
+        public void TestLongExpression2()
         {
             string expression = "122*+2/";
             Assert.AreEqual(2, calculator.Evaluate(expression));
         }
 
         [TestMethod]
-        public void Test13()
+        public void TestLongExpression3()
         {
             string expression = "167+*5+2/";
             Assert.AreEqual(9, calculator.Evaluate(expression));
@@ -109,7 +109,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test14()
+        public void TestOperandsAreLetters()
         {
             string expression = "ab+";
             calculator.Evaluate(expression);
@@ -117,7 +117,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test15()
+        public void TestExpressionIsString()
         {
             string expression = "lalal";
             calculator.Evaluate(expression);
@@ -125,7 +125,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test16()
+        public void TestPointInsteadOfOperator()
         {
             string expression = "12.";
             calculator.Evaluate(expression);
@@ -133,7 +133,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test17()
+        public void TestInfixExpression()
         {
             string expression = "1+2";
             calculator.Evaluate(expression);
@@ -141,7 +141,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test18()
+        public void TestOperantorGoesBeforeTheOperand()
         {
             string expression = "+12";
             calculator.Evaluate(expression);
@@ -149,7 +149,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test19()
+        public void TestExtraOperator()
         {
             string expression = "12+*";
             calculator.Evaluate(expression);
@@ -157,7 +157,7 @@ namespace StackBasedCalculator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Test20()
+        public void TestExtraOperand()
         {
             string expression = "12+3*1";
             calculator.Evaluate(expression);
