@@ -116,10 +116,7 @@ namespace SetGeneric
         /// Adds an element to the current set and returns a value to indicate if the element was successfully added.
         /// </summary>
         /// <param name="item">Element to add.</param>
-        void ICollection<T>.Add(T item)
-        {
-            Add(item);
-        }
+        void ICollection<T>.Add(T item) => Add(item);
 
         private void AddRecursion(Node currentNode, T item)
         {
@@ -371,10 +368,7 @@ namespace SetGeneric
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <returns>an enumerator that iterates through a collection.</returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new Iterator(this);
-        }
+        public IEnumerator<T> GetEnumerator() => new Iterator(this);
 
         /// <summary>
         /// Supports a simple iteration over a generic collection.
@@ -427,10 +421,7 @@ namespace SetGeneric
             /// <summary>
             /// Sets the enumerator to its initial position, which is before the first element in the collection.
             /// </summary>
-            public void Reset()
-            {
-                currentIndex = -1;
-            }
+            public void Reset() => currentIndex = -1;
 
             /// <summary>
             /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
