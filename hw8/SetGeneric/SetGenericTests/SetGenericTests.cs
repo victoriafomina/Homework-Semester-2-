@@ -82,5 +82,70 @@ namespace SetGenericTests
             Assert.IsFalse(set.Contains(1));
             Assert.IsFalse(set.Contains(-5));
         }
+
+        [TestMethod]
+        public void RemoveTestFromOneElementSet()
+        {
+            set.Add(1000);
+            Assert.IsTrue(set.Contains(1000));
+            Assert.IsTrue(set.Remove(1000));
+            Assert.IsFalse(set.Contains(1000));
+            Assert.AreEqual(0, set.Count);
+        }
+
+        // clear tests
+
+        [TestMethod]
+        public void ClearTestEmptySet()
+        {
+            set.Clear();
+            Assert.AreEqual(0, set.Count);
+        }
+
+        [TestMethod]
+        public void ClearTestFromNotEmptySet()
+        {
+            set.Add(1);
+            set.Add(2);
+            set.Add(-5);
+            set.Add(10);
+            set.Add(-3);
+            Assert.AreEqual(5, set.Count);
+            set.Clear();
+            Assert.AreEqual(0, set.Count);
+        }
+
+        // except with tests
+
+        [TestMethod]
+        public void ExceptWithTestCollectionsHaveIntersection()
+        {
+            set.Add(1);
+            set.Add(2);
+            set.Add(-5);
+            set.Add(10);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(1);
+            other.Add(2);
+
+            foreach (var element in other)
+            {
+                System.Console.WriteLine(element);
+            }
+
+            // set.ExceptWith(other);
+
+            Assert.AreEqual(3, set.Count);
+            Assert.IsTrue(set.Contains(-5));
+            Assert.IsTrue(set.Contains(-3));
+            Assert.IsTrue(set.Contains(10));
+        }
+
+        // union with tests
+        
+        //[TestMethod]
+        //public void UnionWithTestCollec
     }
 }

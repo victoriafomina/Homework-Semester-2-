@@ -136,12 +136,12 @@ namespace SetGeneric
                 if (currentNode.Item.CompareTo(item) > 0)
                 {
                     currentNode.LeftChild = new Node(item);
-                    currentNode.Parent = currentNode;
+                    currentNode.LeftChild.Parent = currentNode;
                 }
                 else
                 {
                     currentNode.RightChild = new Node(item);
-                    currentNode.Parent = currentNode;
+                    currentNode.RightChild.Parent = currentNode;
                 }
             }
         }
@@ -156,16 +156,45 @@ namespace SetGeneric
                 return false;
             }
 
-            if (Count == 1)
+            if (head.Item.Equals(item))
             {
-                head = null;
+                RemoveHead();
             }
-
-            RemoveRecursion(head, item);
+            else
+            {
+                RemoveRecursion(head, item);
+            }
 
             --count;
 
             return true;
+        }
+
+        private void RemoveHead()
+        {
+            if (count == 1)
+            {
+                head = null;
+            }
+            else if (head.LeftChild == null || head.RightChild == null)
+            {
+                if (head.LeftChild == null)
+                {
+                    head = head.RightChild;
+                    head.Parent = null;
+                }
+                else
+                {
+                    head = head.LeftChild;
+                    head.Parent = null;
+                }
+            }
+            else
+            {
+                head.Item = MaximumInSubtree(head.LeftChild);
+                RemoveRecursion(head.LeftChild, head.Item);
+            }
+
         }
 
         private void RemoveRecursion(Node currentNode, T item)
@@ -186,7 +215,7 @@ namespace SetGeneric
                 }
                 else
                 {
-                    currentNode.Item = MaximumInSubtree(currentNode);
+                    currentNode.Item = MaximumInSubtree(currentNode.LeftChild);
                     RemoveRecursion(currentNode.LeftChild, currentNode.Item);
                 }
             }
@@ -339,15 +368,12 @@ namespace SetGeneric
         }
 
         /// <returns>an enumerator that iterates through a collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return new Iterator(this);
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <returns>an enumerator that iterates through a collection.</returns>
         public IEnumerator<T> GetEnumerator()
         {
-            return GetEnumerator();
+            return new Iterator(this);
         }
 
         /// <summary>
