@@ -297,31 +297,10 @@ namespace SetGeneric
 
         private T TreeTraversal(int index)
         {
-            var currentNode = head;
-            int currentIndex = 0;
+            T[] destination = new T[count];
+            CopyTo(destination, 0);
 
-            while (true)
-            {
-                if (CheckWeHaveGotNeededElement(index, currentIndex))
-                {
-                    return currentNode.Item;
-                }
-
-                if (currentNode.LeftChild != null)
-                {
-                    currentNode = currentNode.LeftChild;
-                    ++currentIndex;
-                    if (CheckWeHaveGotNeededElement(index, currentIndex))
-                    {
-                        return currentNode.Item;
-                    }
-                }
-                else if (currentNode.RightChild != null)
-                {
-                    currentNode = currentNode.RightChild;
-                    ++currentIndex;
-                }
-            }
+            return destination[index];
         }
 
         private bool CheckWeHaveGotNeededElement(int searching, int currentPosition)
