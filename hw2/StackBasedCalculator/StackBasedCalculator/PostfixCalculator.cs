@@ -110,6 +110,5 @@ namespace StackBasedCalculator
 
         private bool IsOperator(char symbol) 
                 => symbol == '-' || symbol == '+' || symbol == '/' || symbol == '*';
-        }
     }
 }
