@@ -9,7 +9,7 @@ namespace SetGeneric
     /// </summary>
     public class Set<T> : ISet<T> where T : IComparable<T>
     {
-        private Node head;
+        private Node root;
         private int count;
 
         private class Node
@@ -36,7 +36,7 @@ namespace SetGeneric
         /// </summary>
         public Set()
         {
-            head = null;
+            root = null;
             count = 0;
         }
 
@@ -50,7 +50,7 @@ namespace SetGeneric
         /// </summary>
         public bool Contains(T item)
         {
-            if (head == null)
+            if (root == null)
             {
                 return false;
             }
@@ -60,7 +60,7 @@ namespace SetGeneric
                 return false;
             }
 
-            var currentNode = head;
+            var currentNode = root;
 
             while (true)
             {
@@ -94,9 +94,9 @@ namespace SetGeneric
         /// <returns>True if the element was successfully added.</returns>
         public bool Add(T item)
         {
-            if (head == null)
+            if (root == null)
             {
-                head = new Node(item);
+                root = new Node(item);
             }
             else if (Contains(item))
             {
@@ -104,7 +104,7 @@ namespace SetGeneric
             }
             else
             {
-                AddRecursion(head, item);
+                AddRecursion(root, item);
             }
 
             ++count;
@@ -153,13 +153,13 @@ namespace SetGeneric
                 return false;
             }
 
-            if (head.Item.Equals(item))
+            if (root.Item.Equals(item))
             {
                 RemoveHead();
             }
             else
             {
-                RemoveRecursion(head, item);
+                RemoveRecursion(root, item);
             }
 
             --count;
@@ -171,25 +171,25 @@ namespace SetGeneric
         {
             if (count == 1)
             {
-                head = null;
+                root = null;
             }
-            else if (head.LeftChild == null || head.RightChild == null)
+            else if (root.LeftChild == null || root.RightChild == null)
             {
-                if (head.LeftChild == null)
+                if (root.LeftChild == null)
                 {
-                    head = head.RightChild;
-                    head.Parent = null;
+                    root = root.RightChild;
+                    root.Parent = null;
                 }
                 else
                 {
-                    head = head.LeftChild;
-                    head.Parent = null;
+                    root = root.LeftChild;
+                    root.Parent = null;
                 }
             }
             else
             {
-                head.Item = MaximumInSubtree(head.LeftChild);
-                RemoveRecursion(head.LeftChild, head.Item);
+                root.Item = MaximumInSubtree(root.LeftChild);
+                RemoveRecursion(root.LeftChild, root.Item);
             }
 
         }
@@ -276,7 +276,7 @@ namespace SetGeneric
         /// </summary>
         public void Clear()
         {
-            head = null;
+            root = null;
             count = 0;
         }
 
@@ -297,14 +297,33 @@ namespace SetGeneric
 
         private T TreeTraversal(int index)
         {
-            T[] destination = new T[count];
-            CopyTo(destination, 0);
+            var stackOfElements = new Stack<Node>();
 
-            return destination[index];
+            var currentNode = root;
+
+            int currentIndex = -1;
+
+            while (stackOfElements.Count > 0 || currentNode != null)
+            {
+                if (currentNode == null)
+                {
+                    currentNode = stackOfElements.Pop();
+                    ++currentIndex;
+                    if (currentIndex == index)
+                    {
+                        return currentNode.Item;
+                    }
+                    currentNode = currentNode.RightChild;
+                }
+                else
+                {
+                    stackOfElements.Push(currentNode);
+                    currentNode = currentNode.LeftChild;
+                }
+            }
+
+            return currentNode.Item;
         }
-
-        private bool CheckWeHaveGotNeededElement(int searching, int currentPosition)
-                => searching == currentPosition;
 
         /// <summary>
         /// Copies the elements of the Set to an Array, starting at a particular Array index.
@@ -324,7 +343,7 @@ namespace SetGeneric
                 throw new ArgumentOutOfRangeException($"Invalid index \"copyingStartsFrom\" {copyingStartsFrom}!!!\n");
             }
 
-            if (head == null)
+            if (root == null)
             {
                 throw new EmptySetException("The set is empty!!! Invalid operation.\n");
             }
@@ -336,6 +355,7 @@ namespace SetGeneric
             }
 
             int index = copyingStartsFrom;
+
             foreach (var element in this)
             {
                 destination[index] = element;
@@ -375,7 +395,7 @@ namespace SetGeneric
                 {
                     if (currentIndex < 0 || currentIndex >= tree.Count)
                     {
-                        throw new IndexOutOfRangeException();
+                        throw new IndexOutOfRangeException("Index is out of range!\n");
                     }
 
                     return tree[currentIndex];

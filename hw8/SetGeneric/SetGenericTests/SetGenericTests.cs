@@ -138,6 +138,59 @@ namespace SetGenericTests
             Assert.IsTrue(set.Contains(10));
         }
 
+        [TestMethod]
+        public void ExceptWithTestCollectionsHaveNoIntersections()
+        {
+            set.Add(7);
+            set.Add(9);
+            set.Add(-2);
+            set.Add(-10);
+            set.Add(-11);
+
+            var other = new Set<int>();
+            other.Add(12);
+            other.Add(0);
+
+            set.ExceptWith(other);
+
+            Assert.AreEqual(5, set.Count);
+            Assert.IsTrue(set.Contains(7));
+            Assert.IsTrue(set.Contains(9));
+            Assert.IsTrue(set.Contains(-2));
+            Assert.IsTrue(set.Contains(-10));
+            Assert.IsTrue(set.Contains(-11));
+            Assert.IsFalse(set.Contains(12));
+            Assert.IsFalse(set.Contains(0));
+        }
+
+        [TestMethod]
+        public void ExceptWithTestEmptySet()
+        {
+            var other = new Set<int>();
+            other.Add(12);
+            other.Add(0);
+
+            set.ExceptWith(other);
+
+            Assert.AreEqual(0, set.Count);
+        }
+
+        [TestMethod]
+        public void ExceptWithTestEmptyOther()
+        {
+            set.Add(7);
+            set.Add(9);
+            set.Add(-2);
+            set.Add(-10);
+            set.Add(-11);
+
+            var other = new Set<int>();
+
+            set.ExceptWith(other);
+
+            Assert.AreEqual(5, set.Count);
+        }
+
         // union with tests
         
         [TestMethod]
@@ -164,6 +217,55 @@ namespace SetGenericTests
             Assert.IsTrue(set.Contains(-3));
             Assert.IsTrue(set.Contains(1));
             Assert.IsTrue(set.Contains(2));
+        }
+
+        [TestMethod]
+        public void UnionWithTestCollectionsAreTheSame()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            set.UnionWith(other);
+
+            Assert.AreEqual(5, set.Count);
+            Assert.IsTrue(set.Contains(56));
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsTrue(set.Contains(-5));
+            Assert.IsTrue(set.Contains(0));
+            Assert.IsTrue(set.Contains(-3));
+        }
+
+        // symmetric except with tests
+
+        [TestMethod]
+        public void SymmetricExceptWithTestCollectionsAreTheSame()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            set.SymmetricExceptWith(other);
+
+            Assert.AreEqual(0, other.Count);
         }
     }
 }
