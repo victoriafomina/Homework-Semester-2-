@@ -194,7 +194,7 @@ namespace SetGenericTests
         // union with tests
         
         [TestMethod]
-        public void UnionWithTestCollectionsAreNotTheSame()
+        public void UnionWithTestCollectionsAreNotEqual()
         {
             set.Add(56);
             set.Add(5);
@@ -220,7 +220,7 @@ namespace SetGenericTests
         }
 
         [TestMethod]
-        public void UnionWithTestCollectionsAreTheSame()
+        public void UnionWithTestCollectionsAreEqual()
         {
             set.Add(56);
             set.Add(5);
@@ -248,7 +248,7 @@ namespace SetGenericTests
         // symmetric except with tests
 
         [TestMethod]
-        public void SymmetricExceptWithTestCollectionsAreTheSame()
+        public void SymmetricExceptWithTestCollectionsAreEqual()
         {
             set.Add(56);
             set.Add(5);
@@ -265,7 +265,199 @@ namespace SetGenericTests
 
             set.SymmetricExceptWith(other);
 
-            Assert.AreEqual(0, other.Count);
+            Assert.AreEqual(0, set.Count);
+        }
+
+        [TestMethod]
+        public void SymmetricExceptWithTestCollectionsHaveNoIntersection()
+        {
+            set.Add(0);
+            set.Add(-7);
+            set.Add(2);
+
+            var other = new Set<int>();
+            other.Add(1);
+            other.Add(-5);
+
+            set.SymmetricExceptWith(other);
+
+            Assert.AreEqual(5, set.Count);
+            Assert.IsTrue(set.Contains(0));
+            Assert.IsTrue(set.Contains(-7));
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(-5));
+        }
+
+        public void SymmetricExceptWithCollectionsHaveIntersection()
+        {
+            set.Add(0);
+            set.Add(-7);
+            set.Add(2);
+
+            var other = new Set<int>();
+            other.Add(1);
+            other.Add(-5);
+            other.Add(0);
+
+            set.SymmetricExceptWith(other);
+
+            Assert.AreEqual(4, set.Count);
+            Assert.IsFalse(set.Contains(0));
+            Assert.IsTrue(set.Contains(-7));
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(-5));
+        }
+
+        // set equals tests
+
+        [TestMethod]
+        public void SetEqualsTestCollectionsAreEqual()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            Assert.IsTrue(set.SetEquals(other));
+        }
+
+        [TestMethod]
+        public void SetEqualsTestCollectionsAreNotEqual()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+
+            Assert.IsFalse(set.SetEquals(other));
+        }
+
+        // overlaps tests
+
+        [TestMethod]
+        public void OverlapsTestCollectionsHaveNoOverlap()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(6);
+            other.Add(9);
+            other.Add(7);
+            other.Add(8);
+
+            Assert.IsFalse(set.Overlaps(other));
+        }
+
+        [TestMethod]
+        public void OverlapsTestCollectionsHaveOverlap()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+
+            Assert.IsTrue(set.Overlaps(other));
+        }
+
+        // is superset of tests
+
+        [TestMethod]
+        public void IsSupersetOfTestWhenItIsNot()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(1);
+
+            Assert.IsFalse(set.IsSupersetOf(other));
+        }
+
+        [TestMethod]
+        public void IsSupersetOfTestWhenItIsSuperset()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+
+            Assert.IsTrue(set.IsSupersetOf(other));
+        }
+
+        // is subset of tests
+
+        [TestMethod]
+        public void IsSubsetOfTestWhenItIsSubset()
+        {
+            set.Add(56);
+            set.Add(5);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            Assert.IsTrue(set.IsSubsetOf(other));
+        }
+
+        [TestMethod]
+        public void IsSubsetOfTestWhenItIsNot()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(100);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            Assert.IsFalse(set.IsSubsetOf(other));
         }
     }
 }
