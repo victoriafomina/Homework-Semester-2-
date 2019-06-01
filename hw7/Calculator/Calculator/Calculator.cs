@@ -26,28 +26,29 @@ namespace Calculator
             textBoxExpression.Text += "0";
         }
 
-        private double CalculateExpression(double operandLeft, char operation, double operandRight)
+        private (bool, double) CalculateExpression(double operandLeft, char operation, double operandRight)
         {
-            double result = 0;
+            var result = (true, 0.0);
+
             switch (operation)
             {
                 case '+':
-                    result = operandLeft + operandRight;
+                    result.Item2 = operandLeft + operandRight;
                     break;
                 case '-':
-                    result = operandLeft - operandRight;
+                    result.Item2 = operandLeft - operandRight;
                     break;
                 case '*':
-                    result = operandLeft * operandRight;
+                    result.Item2 = operandLeft * operandRight;
                     break;
                 case '/':
-                    try
+                    if (operandRight == 0)
                     {
-                        result = operandLeft / operandRight;
+                        result.Item1 = false;
                     }
-                    catch(DivideByZeroException)
+                    else
                     {
-                        textBoxExpression.Text = "Division by zero is not allowed";
+                        result.Item2 = operandLeft / operandRight;
                     }
                     break;
                 default:
@@ -105,7 +106,7 @@ namespace Calculator
             ParseLeftOperandToDouble(out operandLeft);
             ParseRightOperandToDouble(out operandRight);
 
-            double result;
+            var result = (false, 0.0);
             if (textBoxExpression.Text.Contains('+'))
             {
                 result = CalculateExpression(operandLeft, '+', operandRight);
@@ -122,11 +123,17 @@ namespace Calculator
             {
                 result = CalculateExpression(operandLeft, '/', operandRight);
             }
+
             int lastPositionOfTheRightOperand = RightOperandLastPosition();
-            if (!(textBoxExpression.Text == "Division by zero is not allowed"))
+            if (result.Item1)
             {
                 textBoxExpression.Text = textBoxExpression.Text.Remove(0, lastPositionOfTheRightOperand + 1);
                 textBoxExpression.Text = result.ToString() + textBoxExpression.Text;
+            }
+            else
+            {
+                textBoxExpression.Clear();
+                textBoxExpression.Text += "Division by zero is not allowed";
             }
         }
 
