@@ -125,10 +125,11 @@ namespace Calculator
             }
 
             int lastPositionOfTheRightOperand = RightOperandLastPosition();
+
             if (result.Item1)
             {
                 textBoxExpression.Text = textBoxExpression.Text.Remove(0, lastPositionOfTheRightOperand + 1);
-                textBoxExpression.Text = result.ToString() + textBoxExpression.Text;
+                textBoxExpression.Text = result.Item2.ToString() + textBoxExpression.Text;
             }
             else
             {
@@ -163,25 +164,32 @@ namespace Calculator
             {
                 TextBoxExpressionIncludesAnOperatorWithTwoOperandsCalculate();
             }
-
             // the situation when the operator was pressed when the textBoxExpression was empty
-            if (textBoxExpression.Text.Count() == 0)
+            else if (textBoxExpression.Text.Count() == 0)
             {
                 OperatorWasPressedWhenTheTextBoxExpressionIsEmpty();
             }
-
             // describes the situation when the comma is the last element
-            if (textBoxExpression.Text[textBoxExpression.Text.Count() - 1] == ',')
+            else if (textBoxExpression.Text[textBoxExpression.Text.Count() - 1] == ',')
             {
                 textBoxExpression.Text += "0";
             }
+            // describes the situation when "Division by zero is not allowed" in the textbox
+            else if (textBoxExpression.Text == "Division by zero is not allowed")
+            {
+                textBoxExpression.Clear();
+                OperatorWasPressedWhenTheTextBoxExpressionIsEmpty();
+            }
 
-            OperationButtonWasPressed(sender);
+            if (textBoxExpression.Text != "Division by zero is not allowed")
+            {
+                OperationButtonWasPressed(sender);
+            }
         }
 
         private void NumberClickHandler(object sender)
         {
-            // trying to understand what operator is being written (left or right)
+            // trying to understand which operator is being written (left or right)
 
             // the right one
             if (textBoxExpression.Text.Contains('+') || textBoxExpression.Text.Contains('-') || textBoxExpression.Text.Contains('*') ||
@@ -200,7 +208,8 @@ namespace Calculator
             // the left one
             else if (textBoxExpression.Text.Count() > 0)
             {
-                if (!textBoxExpression.Text.Contains(',') && textBoxExpression.Text[0] == '0')
+                if (!textBoxExpression.Text.Contains(',') && textBoxExpression.Text[0] == '0' || 
+                        textBoxExpression.Text == "Division by zero is not allowed")
                 {
                     textBoxExpression.Clear();
                 }
@@ -261,8 +270,11 @@ namespace Calculator
 
         private void ButtonComma_Click(object sender, EventArgs e)
         {
-            if (textBoxExpression.Text.Count() == 0)
+            // textBox is empty or textBox contains expression "Division by zero is not allowed"
+            if (textBoxExpression.Text == "Division by zero is not allowed" || 
+                    textBoxExpression.Text.Count() == 0)
             {
+                textBoxExpression.Clear();
                 textBoxExpression.Text += "0,";
             }
             // the last element (not to count spaces) is an operator
