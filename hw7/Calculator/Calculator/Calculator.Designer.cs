@@ -45,7 +45,7 @@
             this.button0 = new System.Windows.Forms.Button();
             this.buttonComma = new System.Windows.Forms.Button();
             this.buttonEqually = new System.Windows.Forms.Button();
-            this.textBoxExpression = new System.Windows.Forms.TextBox();
+            this.expression = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonClear
@@ -235,13 +235,13 @@
             this.buttonEqually.UseVisualStyleBackColor = true;
             this.buttonEqually.Click += new System.EventHandler(this.ButtonEqually_Click);
             // 
-            // textBoxExpression
+            // expression
             // 
-            this.textBoxExpression.Location = new System.Drawing.Point(35, 38);
-            this.textBoxExpression.Name = "textBoxExpression";
-            this.textBoxExpression.ReadOnly = true;
-            this.textBoxExpression.Size = new System.Drawing.Size(346, 26);
-            this.textBoxExpression.TabIndex = 19;
+            this.expression.Location = new System.Drawing.Point(35, 38);
+            this.expression.Name = "expression";
+            this.expression.ReadOnly = true;
+            this.expression.Size = new System.Drawing.Size(346, 26);
+            this.expression.TabIndex = 19;
             // 
             // Calculator
             // 
@@ -249,7 +249,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(417, 469);
-            this.Controls.Add(this.textBoxExpression);
+            this.Controls.Add(this.expression);
             this.Controls.Add(this.buttonEqually);
             this.Controls.Add(this.buttonComma);
             this.Controls.Add(this.button0);
@@ -294,7 +294,7 @@
         private System.Windows.Forms.Button button0;
         private System.Windows.Forms.Button buttonComma;
         private System.Windows.Forms.Button buttonEqually;
-        private System.Windows.Forms.TextBox textBoxExpression;
+        private System.Windows.Forms.TextBox expression;
     }
 }
 
