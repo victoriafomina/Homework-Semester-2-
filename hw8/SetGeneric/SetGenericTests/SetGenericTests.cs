@@ -459,5 +459,161 @@ namespace SetGenericTests
 
             Assert.IsFalse(set.IsSubsetOf(other));
         }
+
+        // is proper superset of tests
+
+        [TestMethod]
+        public void IsProperSupersetOfTestWhenSetsAreEqual()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            Assert.IsFalse(set.IsProperSupersetOf(other));
+        }
+
+        [TestMethod]
+        public void IsProperSupersetOfTestWhenItIsNotProperSuperset()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(1);
+            other.Add(-3);
+
+            Assert.IsFalse(set.IsProperSupersetOf(other));
+        }
+
+        [TestMethod]
+        public void IsProperSupersetOfTestWhenItIsProperSuperset()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+
+            Assert.IsTrue(set.IsProperSupersetOf(other));
+        }
+
+        // is proper subset of tests
+
+        [TestMethod]
+        public void IsProperSubsetOfTestSetsAreEqual()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+            set.Add(-3);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            Assert.IsFalse(set.IsProperSubsetOf(other));
+        }
+
+        [TestMethod]
+        public void IsProperSubsetOfTestWhenItIsNotProperSubset()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(1);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            Assert.IsFalse(set.IsProperSubsetOf(other));
+        }
+        
+        [TestMethod]
+        public void IsProperSubsetOfTestWhenItIsProperSubset()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+
+            var other = new Set<int>();
+            other.Add(56);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(0);
+            other.Add(-3);
+
+            Assert.IsTrue(set.IsProperSubsetOf(other));
+        }
+
+        // intersect with tests
+
+        [TestMethod]
+        public void IntersectWithTestSetsDoNotIntersect()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+
+            var other = new Set<int>();
+            other.Add(6);
+            other.Add(55);
+            other.Add(-55);
+            other.Add(1);
+
+            set.IntersectWith(other);
+
+            Assert.AreEqual(0, set.Count);                
+        }
+
+        [TestMethod]
+        public void IntersectWithTestSetsIntersect()
+        {
+            set.Add(56);
+            set.Add(5);
+            set.Add(-5);
+            set.Add(0);
+
+            var other = new Set<int>();
+            other.Add(6);
+            other.Add(5);
+            other.Add(-5);
+            other.Add(1);
+
+            set.IntersectWith(other);
+
+            Assert.AreEqual(2, set.Count);
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsTrue(set.Contains(-5));
+        }
     }
 }
