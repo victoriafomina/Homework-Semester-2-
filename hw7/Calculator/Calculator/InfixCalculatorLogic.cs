@@ -5,21 +5,6 @@ namespace Calculator
 {
     public class InfixCalculatorLogic
     {
-        private void AddANumeralButtonToTheExpression(string expression, char number)
-        {
-            expression += number;
-        }
-
-        private void AddAnOperatorToTheExpression(string expression, char operation)
-        {
-            expression += " " + operation + " ";
-        }
-
-        private void OperatorWasPressedWhenExpressionIsEmptyOrContainsMessageAboutError(string expression)
-        {
-            expression += "0";
-        }
-
         private (bool, double) CalculateExpression(double operandLeft, char operation, double operandRight)
         {
             var result = (true, 0.0);
@@ -91,7 +76,7 @@ namespace Calculator
             return lastPosOfTheRightOperand;
         }
 
-        private void ExpressionIncludesAnOperatorWithTwoOperandsCalculate(string expression)
+        private void ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref string expression)
         {
             double operandLeft;
             double operandRight;
@@ -147,9 +132,9 @@ namespace Calculator
         }
 
         // Method that must be execute if the operator (+, -, *, /) button was pressed.
-        public string OperatorClickHandler(string expression, char operation)
+        public string OperatorClickHandler(string expression, string operation)
         {
-            if (!IsOperator(operation))
+            if (operation.Count() != 1 && !IsOperator(operation[0]))
             {
                 throw new FormatException("The second argument must be an operator (+, -, *, /)\n");
             }
@@ -160,15 +145,10 @@ namespace Calculator
             if (expression.Contains('+') || expression.Contains('-') || expression.Contains('*') ||
                     expression.Contains('/'))
             {
-                ExpressionIncludesAnOperatorWithTwoOperandsCalculate(expression);
+                ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
             }
-            // the situation when the operator was pressed when the expression was empty
-            else if (expression.Count() == 0)
-            {
-                OperatorWasPressedWhenExpressionIsEmptyOrContainsMessageAboutError(expression);
-            }
-            // describes the situation when the comma is the last element
-            else if (expression[expression.Count() - 1] == ',')
+            // the situation when the operator was pressed when the expression was empty or when the comma is the last element
+            else if (expression.Count() == 0 || expression[expression.Count() - 1] == ',')
             {
                 expression += "0";
             }
@@ -176,20 +156,20 @@ namespace Calculator
             else if (expression == "Division by zero is not allowed")
             {
                 expression = "";
-                OperatorWasPressedWhenExpressionIsEmptyOrContainsMessageAboutError(expression);
+                expression += "0";
             }
 
             if (expression != "Division by zero is not allowed")
             {
-                AddAnOperatorToTheExpression(expression, operation);
+                expression += " " + operation + " ";
             }
 
             return expression;
         }
 
-        public string NumberClickHandler(string expression, char number)
+        public string NumberClickHandler(string expression, string number)
         {
-            if (!char.IsDigit(number))
+            if (number.Count() == 1 && !char.IsDigit(number[0]))
             {
                 throw new FormatException("The second argument must be a digit\n");
             }
@@ -220,14 +200,14 @@ namespace Calculator
                 }
             }
 
-            AddANumeralButtonToTheExpression(expression, number);
+            expression += number;
 
             return expression;
         }
 
-        public string CommaClickHandler(string expression, char comma)
+        public string CommaClickHandler(string expression, string comma)
         {
-            if (comma != ',')
+            if (comma != ",")
             {
                 throw new FormatException("The second argument must be a comma\n");
             }
@@ -291,9 +271,9 @@ namespace Calculator
             return expression;
         }
 
-        public string EquallyClickHandler(string expression, char equally)
+        public string EquallyClickHandler(string expression, string equally)
         {
-            if (equally != '=')
+            if (equally != "=")
             {
                 throw new FormatException("The second argument must be an equally\n");
             }
@@ -306,16 +286,28 @@ namespace Calculator
             {
                 // duplicate the left operator if there is no right one
                 expression += expression.Substring(0, expression.Count() - 3);
-                ExpressionIncludesAnOperatorWithTwoOperandsCalculate(expression);
+                ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
             }
             else if (char.IsDigit(expression[expression.Count() - 1]))
             {
                 if (expression.Contains('+') || expression.Contains('-') || expression.Contains('*')
                         || expression.Contains('/'))
                 {
-                    ExpressionIncludesAnOperatorWithTwoOperandsCalculate(expression);
+                    ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
                 }
             }
+
+            return expression;
+        }
+
+        public string ClearClickHandler(string expression, string clear)
+        {
+            if (clear != "C")
+            { 
+                throw new FormatException("The second argument must be a clear button (C)\n");
+            }
+
+            expression = "";
 
             return expression;
         }
