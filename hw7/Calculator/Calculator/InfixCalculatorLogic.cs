@@ -152,8 +152,8 @@ namespace Calculator
                 expression += "0";
             }
             // discribes the situation when the expression already includes operator
-            else if (expression[0] != '-' && (expression.Contains('+') || expression.Contains('-') || 
-                    expression.Contains('*') || expression.Contains('/')))
+            else if (expression.LastIndexOf('-') > 0 || expression.Contains('+') || expression.Contains('*') 
+                    || expression.Contains('/'))
             {
                 ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
             }
