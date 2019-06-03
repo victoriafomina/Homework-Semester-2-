@@ -92,6 +92,30 @@ namespace CalculatorTests
         }
 
         [TestMethod]
+        public void PressEquallyWhenExpressionIsEmptyTest()
+        {
+            expression = calculator.EquallyClickHandler(expression);
+            Assert.AreEqual("0", expression);
+        }
+
+        [TestMethod]
+        public void ThreePlusNothingTest()
+        {
+            expression = calculator.NumberClickHandler(expression, "3");
+            expression = calculator.OperatorClickHandler(expression, "+");
+            expression = calculator.EquallyClickHandler(expression);
+            Assert.AreEqual("6", expression);
+        }
+
+        [TestMethod]
+        public void PlusNothingTest()
+        {
+            expression = calculator.OperatorClickHandler(expression, "+");
+            expression = calculator.EquallyClickHandler(expression);
+            Assert.AreEqual("0", expression);
+        }
+
+        [TestMethod]
         public void DivideByZeroTest1()
         {
             expression = calculator.NumberClickHandler(expression, "1");
@@ -107,6 +131,14 @@ namespace CalculatorTests
             expression = calculator.NumberClickHandler(expression, "1");
             expression = calculator.OperatorClickHandler(expression, "*");
             expression = calculator.NumberClickHandler(expression, "0");
+            expression = calculator.OperatorClickHandler(expression, "/");
+            expression = calculator.EquallyClickHandler(expression);
+            Assert.AreEqual("Division by zero is not allowed", expression);
+        }
+
+        [TestMethod]
+        public void DivideByZeroTest3()
+        {
             expression = calculator.OperatorClickHandler(expression, "/");
             expression = calculator.EquallyClickHandler(expression);
             Assert.AreEqual("Division by zero is not allowed", expression);
