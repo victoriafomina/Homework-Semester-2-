@@ -27,6 +27,20 @@ namespace CalculatorTests
         }
 
         [TestMethod]
+        public void PressOneTest()
+        {
+            expression = calculator.NumberClickHandler(expression, "1");
+            Assert.AreEqual("1", expression);
+        }
+
+        [TestMethod]
+        public void CommaPressTest()
+        {
+            expression = calculator.CommaClickHandler(expression);
+            Assert.AreEqual("0,", expression);
+        }
+
+        [TestMethod]
         public void OneMinusTwoTest()
         {
             expression = calculator.NumberClickHandler(expression, "1");
@@ -34,6 +48,16 @@ namespace CalculatorTests
             expression = calculator.NumberClickHandler(expression, "2");
             expression = calculator.EquallyClickHandler(expression);
             Assert.AreEqual("-1", expression);
+        }
+
+        [TestMethod]
+        public void NineMultipliedByTwoPlusTest()
+        {
+            expression = calculator.NumberClickHandler(expression, "9");
+            expression = calculator.OperatorClickHandler(expression, "*");
+            expression = calculator.NumberClickHandler(expression, "2");
+            expression = calculator.OperatorClickHandler(expression, "+");
+            Assert.AreEqual("18 + ", expression);
         }
 
         [TestMethod]
