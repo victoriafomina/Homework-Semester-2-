@@ -76,7 +76,7 @@ namespace Calculator
         private void ButtonComma_Click(object sender, EventArgs e)
         {
             var comma = (Button)sender;
-            expression.Text = calculator.CommaClickHandler(expression.Text, comma.Text);
+            expression.Text = calculator.CommaClickHandler(expression.Text);
         }
 
         private void ButtonDivide_Click(object sender, EventArgs e)
@@ -106,13 +106,13 @@ namespace Calculator
         private void ButtonEqually_Click(object sender, EventArgs e)
         {
             var equally = (Button)sender;
-            expression.Text = calculator.EquallyClickHandler(expression.Text, equally.Text);
+            expression.Text = calculator.EquallyClickHandler(expression.Text);
         }
 
         private void ButtonClear_Click(object sender, EventArgs e)
         {
             var clear = (Button)sender;
-            expression.Text = calculator.ClearClickHandler(expression.Text, clear.Text);
+            expression.Text = calculator.ClearClickHandler();
         }
     }
 }

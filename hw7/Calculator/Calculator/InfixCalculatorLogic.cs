@@ -5,29 +5,29 @@ namespace Calculator
 {
     public class InfixCalculatorLogic
     {
-        private (bool, double) CalculateExpression(double operandLeft, char operation, double operandRight)
+        private double CalculateExpression(double operandLeft, char operation, double operandRight, ref string expression)
         {
-            var result = (true, 0.0);
+            double result = 0;
 
             switch (operation)
             {
                 case '+':
-                    result.Item2 = operandLeft + operandRight;
+                    result = operandLeft + operandRight;
                     break;
                 case '-':
-                    result.Item2 = operandLeft - operandRight;
+                    result = operandLeft - operandRight;
                     break;
                 case '*':
-                    result.Item2 = operandLeft * operandRight;
+                    result = operandLeft * operandRight;
                     break;
                 case '/':
                     if (operandRight == 0)
                     {
-                        result.Item1 = false;
+                        throw new DivideByZeroException("Division by zero is not allowed!\n");
                     }
                     else
                     {
-                        result.Item2 = operandLeft / operandRight;
+                        result = operandLeft / operandRight;
                     }
                     break;
                 default:
@@ -83,39 +83,42 @@ namespace Calculator
             ParseLeftOperandToDouble(out operandLeft, expression);
             ParseRightOperandToDouble(out operandRight, expression);
 
-            var result = (false, 0.0);
+            double result = 0;
+
             if (expression.Contains('+'))
             {
-                result = CalculateExpression(operandLeft, '+', operandRight);
-            }
-            else if (expression.Contains('-'))
-            {
-                result = CalculateExpression(operandLeft, '-', operandRight);
+                result = CalculateExpression(operandLeft, '+', operandRight, ref expression);
             }
             else if (expression.Contains('*'))
             {
-                result = CalculateExpression(operandLeft, '*', operandRight);
+                result = CalculateExpression(operandLeft, '*', operandRight, ref expression);
+            }
+            else if (expression.Contains('/'))
+            {
+                try
+                {
+                    result = CalculateExpression(operandLeft, '/', operandRight, ref expression);
+                }
+                catch (DivideByZeroException)
+                {
+                    expression = "Division by zero is not allowed";
+                }
             }
             else
             {
-                result = CalculateExpression(operandLeft, '/', operandRight);
+                result = CalculateExpression(operandLeft, '-', operandRight, ref expression);
             }
 
             int lastPositionOfTheRightOperand = RightOperandLastPosition(expression);
 
-            if (result.Item1)
+            if (expression != "Division by zero is not allowed")
             {
                 expression = expression.Remove(0, lastPositionOfTheRightOperand + 1);
-                expression = result.Item2.ToString() + expression;
-            }
-            else
-            {
-                expression = "";
-                expression += "Division by zero is not allowed";
+                expression = result.ToString() + expression;
             }
         }
 
-        private void RemovesTheLastElementIfIsAnOperator(string expression)
+        private void RemovesTheLastElementIfIsAnOperator(ref string expression)
         {
             // check if in the expression (not to count spaces) could be an operator
             if (expression.Count() > 2)
@@ -131,7 +134,9 @@ namespace Calculator
             }
         }
 
-        // Method that must be execute if the operator (+, -, *, /) button was pressed.
+        /// <summary>
+        /// Method that must be execute if the operator (+, -, *, /) button was pressed.
+        /// </summary>
         public string OperatorClickHandler(string expression, string operation)
         {
             if (operation.Count() != 1 && !IsOperator(operation[0]))
@@ -139,18 +144,18 @@ namespace Calculator
                 throw new FormatException("The second argument must be an operator (+, -, *, /)\n");
             }
 
-            RemovesTheLastElementIfIsAnOperator(expression);
+            RemovesTheLastElementIfIsAnOperator(ref expression);
 
-            // discribes the situation when the expression already includes operator
-            if (expression.Contains('+') || expression.Contains('-') || expression.Contains('*') ||
-                    expression.Contains('/'))
-            {
-                ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
-            }
             // the situation when the operator was pressed when the expression was empty or when the comma is the last element
-            else if (expression.Count() == 0 || expression[expression.Count() - 1] == ',')
+            if (expression.Count() == 0 || expression[expression.Count() - 1] == ',')
             {
                 expression += "0";
+            }
+            // discribes the situation when the expression already includes operator
+            else if (expression[0] != '-' && (expression.Contains('+') || expression.Contains('-') || 
+                    expression.Contains('*') || expression.Contains('/')))
+            {
+                ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
             }
             // describes the situation when "Division by zero is not allowed" in the expression
             else if (expression == "Division by zero is not allowed")
@@ -159,10 +164,7 @@ namespace Calculator
                 expression += "0";
             }
 
-            if (expression != "Division by zero is not allowed")
-            {
-                expression += " " + operation + " ";
-            }
+            expression += " " + operation + " ";
 
             return expression;
         }
@@ -205,13 +207,11 @@ namespace Calculator
             return expression;
         }
 
-        public string CommaClickHandler(string expression, string comma)
+        /// <summary>
+        /// Method that must be execute if the comma was pressed.
+        /// </summary>
+        public string CommaClickHandler(string expression)
         {
-            if (comma != ",")
-            {
-                throw new FormatException("The second argument must be a comma\n");
-            }
-
             // expression is empty or expression contains string "Division by zero is not allowed"
             if (expression == "Division by zero is not allowed" ||
                     expression.Count() == 0)
@@ -225,36 +225,20 @@ namespace Calculator
                 expression += "0,";
             }
             // check if the left operator already has a comma
-            else if (!expression.Contains('+') && !expression.Contains('-') && !expression.Contains('*')
-                    && !expression.Contains('/'))
+            else if (!expression.Contains('+') && !expression.Contains('*') && !expression.Contains('/') 
+                    && expression.LastIndexOf('-') <= 0 && !expression.Contains(','))
             {
-                if (!expression.Contains(','))
-                {
-                    expression += ',';
-                }
+                expression += ',';
             }
             // check if the right operator already has a comma
-            else
+            else if (expression.Contains('+') || expression.LastIndexOf('-') > 0 || expression.Contains('*')
+                    || expression.Contains('/'))
             {
-                int posOfTheOperator;
-                if (expression.Contains('+'))
-                {
-                    posOfTheOperator = expression.IndexOf('+');
-                }
-                else if (expression.Contains('-'))
-                {
-                    posOfTheOperator = expression.IndexOf('-');
-                }
-                else if (expression.Contains('*'))
-                {
-                    posOfTheOperator = expression.IndexOf('*');
-                }
-                else
-                {
-                    posOfTheOperator = expression.IndexOf('/');
-                }
+                char[] searchingForOperator = new char[4] { '+', '-', '*', '/' };
+                var posOfTheOperator = expression.LastIndexOfAny(searchingForOperator);
                 bool flagTheRightOperatorHasAComma = false;
-                for (int i = posOfTheOperator + 2; i < expression.Count(); ++i)
+
+                for (var i = posOfTheOperator + 2; i < expression.Count(); ++i)
                 {
                     if (expression[i] == ',')
                     {
@@ -262,6 +246,7 @@ namespace Calculator
                         break;
                     }
                 }
+
                 if (!flagTheRightOperatorHasAComma)
                 {
                     expression += ',';
@@ -271,13 +256,8 @@ namespace Calculator
             return expression;
         }
 
-        public string EquallyClickHandler(string expression, string equally)
+        public string EquallyClickHandler(string expression)
         {
-            if (equally != "=")
-            {
-                throw new FormatException("The second argument must be an equally\n");
-            }
-
             if (expression.Count() == 0)
             {
                 expression += "0";
@@ -290,8 +270,32 @@ namespace Calculator
             }
             else if (char.IsDigit(expression[expression.Count() - 1]))
             {
-                if (expression.Contains('+') || expression.Contains('-') || expression.Contains('*')
+                if (expression.Contains('+') || expression.LastIndexOf('-') > 0 || expression.Contains('*')
                         || expression.Contains('/'))
+                {
+                    ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
+                }
+            }
+            else if (expression[expression.Count() - 1] == ',')
+            {
+                if (expression[0] != '-' && (expression.Contains('+') || expression.Contains('-') || expression.Contains('*')
+                        || expression.Contains('/')))
+                {
+                    // if the right operator is being written
+                    expression += "0";
+                    ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
+                }
+                else
+                {
+                    // if the left operator is being written
+                    expression = expression.Remove(expression.Count() - 1);
+
+                }
+            }
+            else if (expression[0] == '-')
+            {
+                char[] searchingForOperator = new char[4] { '+', '-', '*', '/' };
+                if (expression.LastIndexOfAny(searchingForOperator) > 0)
                 {
                     ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref expression);
                 }
@@ -300,16 +304,6 @@ namespace Calculator
             return expression;
         }
 
-        public string ClearClickHandler(string expression, string clear)
-        {
-            if (clear != "C")
-            { 
-                throw new FormatException("The second argument must be a clear button (C)\n");
-            }
-
-            expression = "";
-
-            return expression;
-        }
+        public string ClearClickHandler() => "";
     }
 }
