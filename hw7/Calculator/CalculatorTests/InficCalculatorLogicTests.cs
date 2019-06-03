@@ -78,6 +78,20 @@ namespace CalculatorTests
         }
 
         [TestMethod]
+        public void ThreeMinusSixPlusOneMinusSevenTest()
+        {
+            expression = calculator.NumberClickHandler(expression, "3");
+            expression = calculator.OperatorClickHandler(expression, "-");
+            expression = calculator.NumberClickHandler(expression, "6");
+            expression = calculator.OperatorClickHandler(expression, "+");
+            expression = calculator.NumberClickHandler(expression, "1");
+            expression = calculator.OperatorClickHandler(expression, "-");
+            expression = calculator.NumberClickHandler(expression, "7");
+            expression = calculator.EquallyClickHandler(expression);
+            Assert.AreEqual("-9", expression);
+        }
+
+        [TestMethod]
         public void DivideByZeroTest1()
         {
             expression = calculator.NumberClickHandler(expression, "1");
