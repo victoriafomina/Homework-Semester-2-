@@ -2,8 +2,14 @@
 
 namespace ParseTree
 {
+    /// <summary>
+    /// Implements simpliest calculator interface for integer numbers.
+    /// </summary>
     public static class Calculations
     {
+        /// <summary>
+        /// Calculates simpliest expressions.
+        /// </summary>
         public static int Calculate(int operandLeft, string operation, int operandRight)
         {
             int result = 0;

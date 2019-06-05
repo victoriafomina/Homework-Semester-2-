@@ -16,6 +16,8 @@ namespace ParseTree
         public ParseTree(string expression)
         {
             this.expression = expression;
+            root = null;
+            Parse();
         }
 
         /// <summary>
@@ -28,7 +30,75 @@ namespace ParseTree
         /// </summary>
         private void Parse()
         {
-            
+            ParseRecursion(expression, root);
+        }
+        
+        private void ParseRecursion(string expression, Node parent)
+        {
+            if (parent == null)
+            {
+                root = new Operator(expression[1].ToString());
+            }
+
+            var rightOperandStartsFrom = ParseLeftOperand(expression, parent);
+
+            ParseRightOperand(expression, parent, rightOperandStartsFrom);
+        }
+
+        /// <summary>
+        /// Parses the left operand.
+        /// </summary>
+        /// <returns>the first position if the right operand</returns>
+        private int ParseLeftOperand(string expression, Node parent)
+        {
+            int rightOperandStartsFrom = 0;
+
+            if (char.IsDigit(expression[3]))
+            {
+                var posOfTheLastSymbol = PrefixExpressionsHelper.GetPositionOfLastSymbolInNumber(expression, 3);
+                rightOperandStartsFrom = posOfTheLastSymbol + 2;
+                parent.Left = new Operand(expression.Substring(3, posOfTheLastSymbol - 2));
+            }
+            else // then it is an opening bracket
+            {
+                var posOfClosingBracket = PrefixExpressionsHelper.GetPositionOfClosingBracket(expression, 3);
+                rightOperandStartsFrom = posOfClosingBracket + 2;
+
+                if (parent == null)
+                {
+                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), root);
+                }
+                else
+                {
+                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), parent.Left);
+                }
+            }
+
+            return rightOperandStartsFrom;
+        }
+
+        private void ParseRightOperand(string expression, Node parent, int firstPosOfTheRightOperand)
+        {
+            if (char.IsDigit(expression[firstPosOfTheRightOperand]))
+            {
+                var posOfTheLastSymbol = PrefixExpressionsHelper.GetPositionOfLastSymbolInNumber(expression,
+                        firstPosOfTheRightOperand);
+                parent.Right = new Operand(expression.Substring(firstPosOfTheRightOperand,
+                        posOfTheLastSymbol - firstPosOfTheRightOperand + 1));
+            }
+            else // then it is an opening bracket
+            {
+                var posOfClosingBracket = PrefixExpressionsHelper.GetPositionOfClosingBracket(expression, 3);
+
+                if (parent == null)
+                {
+                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), root);
+                }
+                else
+                {
+                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), parent.Right);
+                }
+            }
         }
 
         private abstract class Node
