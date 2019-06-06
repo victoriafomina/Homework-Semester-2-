@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ParseTree
+namespace PrefixParseTree
 {
     /// <summary>
     /// Implements simpliest calculator interface for integer numbers.

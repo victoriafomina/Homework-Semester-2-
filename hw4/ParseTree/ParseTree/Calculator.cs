@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ParseTree
+namespace PrefixParseTree
 {
     /// <summary>
     /// This class lets calculate prefix expressions.

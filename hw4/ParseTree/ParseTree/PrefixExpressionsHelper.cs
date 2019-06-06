@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace ParseTree
+namespace PrefixParseTree
 {
     public static class PrefixExpressionsHelper
     {

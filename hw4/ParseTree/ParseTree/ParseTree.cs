@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ParseTree
+namespace PrefixParseTree
 {
     /// <summary>
     /// Implements IParseTree interface.
@@ -35,9 +35,14 @@ namespace ParseTree
         
         private void ParseRecursion(string expression, Node parent)
         {
-            if (parent == null)
+            if (parent == root)
             {
                 root = new Operator(expression[1].ToString());
+                parent = root;
+            }
+            else
+            {
+                parent = new Operator(expression[1].ToString());
             }
 
             var rightOperandStartsFrom = ParseLeftOperand(expression, parent);
@@ -64,9 +69,9 @@ namespace ParseTree
                 var posOfClosingBracket = PrefixExpressionsHelper.GetPositionOfClosingBracket(expression, 3);
                 rightOperandStartsFrom = posOfClosingBracket + 2;
 
-                if (parent == null)
+                if (parent == root)
                 {
-                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), root);
+                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), root.Left);
                 }
                 else
                 {
@@ -90,9 +95,9 @@ namespace ParseTree
             {
                 var posOfClosingBracket = PrefixExpressionsHelper.GetPositionOfClosingBracket(expression, 3);
 
-                if (parent == null)
+                if (parent == root)
                 {
-                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), root);
+                    ParseRecursion(expression.Substring(3, posOfClosingBracket - 2), root.Right);
                 }
                 else
                 {
