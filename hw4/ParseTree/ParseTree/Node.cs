@@ -1,4 +1,4 @@
-﻿namespace ParseTree
+﻿namespace PrefixParseTree
 {
     public abstract class Node
     {

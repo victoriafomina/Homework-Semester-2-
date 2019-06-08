@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ParseTree
+namespace PrefixParseTree
 {
     /// <summary>
     /// The class that represents the operand.
