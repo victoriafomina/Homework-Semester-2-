@@ -32,5 +32,45 @@ namespace ParseTreeTests
             parser = new ParseTree(prefixExpression);
             Assert.AreEqual(4, parser.Calculate());
         }
+
+        [TestMethod]
+        public void HWProjExampleToStringTest()
+        {
+            prefixExpression = "(* (+ 1 1) 2)";
+            parser = new ParseTree(prefixExpression);
+            Assert.AreEqual("(* (+ 1 1) 2)", parser.ToString());
+        }
+
+        [TestMethod]
+        public void SmallTest()
+        {
+            prefixExpression = "(* (- 5 6) 7)";
+            parser = new ParseTree(prefixExpression);
+            Assert.AreEqual(-7, parser.Calculate());
+        }
+
+        [TestMethod]
+        public void SmallToStringTest()
+        {
+            prefixExpression = "(* (- 5 6) 7)";
+            parser = new ParseTree(prefixExpression);
+            Assert.AreEqual("(* (- 5 6) 7)", parser.ToString());
+        }
+
+        [TestMethod]
+        public void ManyOnesTest()
+        {
+            prefixExpression = "(+ 1 (+ 1 (+ 1 1)))";
+            parser = new ParseTree(prefixExpression);
+            Assert.AreEqual(4, parser.Calculate());
+        }
+
+        [TestMethod]
+        public void ManyOnesToStringTest()
+        {
+            prefixExpression = "(+ 1 (+ 1 (+ 1 1)))";
+            parser = new ParseTree(prefixExpression);
+            Assert.AreEqual("(+ 1 (+ 1 (+ 1 1)))", parser.ToString());
+        }
     }
 }
