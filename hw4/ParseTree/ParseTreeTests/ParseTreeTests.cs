@@ -22,11 +22,11 @@ namespace ParseTreeTests
         {
             prefixExpression = "(+ 1 1)";
             parser = new ParseTree(prefixExpression);
-            Assert.AreEqual("(+ 1 1)", parser.ToString());
+            Assert.AreEqual(prefixExpression, parser.ToString());
         }
 
         [TestMethod]
-        public void HWProjExampleTest()
+        public void HWProjExampleCalculateTest()
         {
             prefixExpression = "(* (+ 1 1) 2)";
             parser = new ParseTree(prefixExpression);
@@ -38,11 +38,11 @@ namespace ParseTreeTests
         {
             prefixExpression = "(* (+ 1 1) 2)";
             parser = new ParseTree(prefixExpression);
-            Assert.AreEqual("(* (+ 1 1) 2)", parser.ToString());
+            Assert.AreEqual(prefixExpression, parser.ToString());
         }
 
         [TestMethod]
-        public void SmallTest()
+        public void SmallCalculateTest()
         {
             prefixExpression = "(* (- 5 6) 7)";
             parser = new ParseTree(prefixExpression);
@@ -54,11 +54,11 @@ namespace ParseTreeTests
         {
             prefixExpression = "(* (- 5 6) 7)";
             parser = new ParseTree(prefixExpression);
-            Assert.AreEqual("(* (- 5 6) 7)", parser.ToString());
+            Assert.AreEqual(prefixExpression, parser.ToString());
         }
 
         [TestMethod]
-        public void ManyOnesTest()
+        public void ManyOnesCalculateTest()
         {
             prefixExpression = "(+ 1 (+ 1 (+ 1 1)))";
             parser = new ParseTree(prefixExpression);
@@ -70,7 +70,29 @@ namespace ParseTreeTests
         {
             prefixExpression = "(+ 1 (+ 1 (+ 1 1)))";
             parser = new ParseTree(prefixExpression);
-            Assert.AreEqual("(+ 1 (+ 1 (+ 1 1)))", parser.ToString());
+            Assert.AreEqual(prefixExpression, parser.ToString());
+        }
+
+        [TestMethod]
+        public void ThreeOperandsCalculateTest()
+        {
+            prefixExpression = "(* (+ 2 3) + 10 5)";
+            parser = new ParseTree(prefixExpression);
+            Assert.AreEqual(25, parser.Calculate());
+        }
+
+        [TestMethod]
+        public void ThreeOperandsToStringTest()
+        {
+            prefixExpression = "(* (+ 2 3) + 10 5)";
+            parser = new ParseTree(prefixExpression);
+            Assert.AreEqual(prefixExpression, parser.Calculate());
+        }
+
+        [TestMethod]
+        public void LongCalculateTest()
+        {
+
         }
     }
 }
