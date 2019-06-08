@@ -55,8 +55,10 @@ namespace PrefixParseTree
         {
             Node newNode;
 
-            if (expression.Dequeue() == "(")
+            if (expression.Peek() == "(")
             {
+                expression.Dequeue();
+
                 switch (expression.Dequeue())
                 {
                     case "+":
@@ -87,6 +89,9 @@ namespace PrefixParseTree
 
             return newNode;
         }
+
+        /// <returns>a string that represents the current object.</returns>
+        public override string ToString() => root.ToString();
 
         private bool IsOperator(char symbol) => symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/';
     }
