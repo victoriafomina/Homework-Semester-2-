@@ -17,7 +17,6 @@ namespace PrefixParseTree
         public ParseTree(string expression)
         {
             this.expression = expression;
-            root = null;
             Parse();
         }
 
@@ -33,9 +32,10 @@ namespace PrefixParseTree
         {
             for (var i = 0; i < expression.Length; ++i)
             { 
-                if (IsOperator(expression[i]))
+                if (IsOperator(expression[i]) || expression[i] == ')')
                 {
                     expression = expression.Substring(0, i) + " " + expression.Substring(i);
+                    ++i;
                 }
             }
 
