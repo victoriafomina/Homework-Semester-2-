@@ -2,8 +2,11 @@
 
 namespace UniqueList
 {
+    /// <summary>
+    /// The class of the exception that is trown when element does not exist.
+    /// </summary>
     [Serializable]
-    public class ElementDoesNotExistException :Exception
+    public class ElementDoesNotExistException : Exception
     {
         public ElementDoesNotExistException() { }
 

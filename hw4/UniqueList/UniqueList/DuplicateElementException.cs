@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace UniqueList
 {
+    /// <summary>
+    /// The class of the exception that is thrown when duplicate element is to add.
+    /// </summary>
     [Serializable]
     public class DuplicateElementException : Exception
     {
