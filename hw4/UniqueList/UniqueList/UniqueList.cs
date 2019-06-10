@@ -8,7 +8,7 @@ namespace UniqueList
     /// </summary>
     public class UniqueList : List<int>
     {
-        List<int> list;
+        private List<int> list;
 
         /// <summary>
         /// Creates an object of the UniqueList class.
@@ -23,7 +23,7 @@ namespace UniqueList
         /// </summary>
         /// <param name="position">Index by which element is going to be add.</param>
         /// <param name="data">Element to add.</param>
-        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
         public override void PushToPosition(int position, int data)
         {
             if (Exists(data))

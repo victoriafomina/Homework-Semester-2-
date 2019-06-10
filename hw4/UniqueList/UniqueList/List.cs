@@ -84,7 +84,7 @@ namespace UniqueList
         /// </summary>
         /// <param name="position">Index by which element is going to be add.</param>
         /// <param name="data">Element to add.</param>
-        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
         public virtual void PushToPosition(int position, T data)
         {
             if (position < 0 || position > size)
@@ -129,7 +129,7 @@ namespace UniqueList
         /// Pops an element with the data "data".
         /// </summary>
         /// <param name="data">Data of the element to pop.</param>
-        /// <exception cref="InvalidOperationException"Thrown when element does not found.></exception>
+        /// <exception cref="InvalidOperationException">Thrown when element does not found.</exception>
         public virtual void Pop(T data)
         {
             if (!Exists(data))
@@ -165,7 +165,7 @@ namespace UniqueList
         /// </summary>
         /// <param name="position">Index by which value is going to be returned.</param>
         /// <returns>Element at the given position.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"Thrown when position is invalid.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
         public T GetValueByPosition(int position)
         {
             if (IsEmpty() || position < 0 || position > size - 1)
