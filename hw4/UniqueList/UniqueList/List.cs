@@ -130,7 +130,7 @@ namespace UniqueList
         /// </summary>
         /// <param name="data">Data of the element to pop.</param>
         /// <exception cref="InvalidOperationException">Thrown when element does not found.</exception>
-        public virtual void Remove(T data)
+        public void Remove(T data)
         {
             if (!Exists(data))
             {
@@ -178,6 +178,27 @@ namespace UniqueList
                 currentNode = currentNode.Next;
             }
             return currentNode.Data;
+        }
+
+        /// <summary>
+        /// Changes the value by postion.
+        /// </summary>
+        public virtual void ChangeByPosition(int position, T data)
+        {
+            if (position < 0 || position >= size)
+            {
+                throw new ArgumentException("Position is invalid!\n");
+            }
+
+            int currentPosition = 0;
+            Node currentNode = head;
+
+            while (currentPosition != position)
+            {
+                currentNode = currentNode.Next;
+            }
+
+            currentNode.Data = data;
         }
 
         /// <returns>String that contains current list.</returns>

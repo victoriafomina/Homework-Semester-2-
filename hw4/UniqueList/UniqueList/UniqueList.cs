@@ -19,30 +19,30 @@ namespace UniqueList
         /// <param name="position">Index by which element is going to be add.</param>
         /// <param name="data">Element to add.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
+        /// <exception cref="DuplicateElementException">Thrown when someone tries to add element that is already 
+        /// in the list.</exception>
         public override void PushToPosition(int position, int data)
         {
             if (Exists(data))
             {
                 throw new DuplicateElementException($"Element with the data {data} is already in the list\n");
             }
-            
+
             base.PushToPosition(position, data);
         }
 
         /// <summary>
-        /// Removes an element with the data "data".
+        /// Changes the value by position.
         /// </summary>
-        /// <param name="data">Data of the element to pop.</param>
-        /// <exception cref="InvalidOperationException">Thrown when element does not found.</exception>S
-        public override void Remove(int data)
+        public override void ChangeByPosition(int position, int data)
         {
-            if (!Exists(data))
+            if (GetValueByPosition(position) != data)
             {
-                throw new ElementDoesNotExistException($"Element with the data {data} does not exist " +
-                        "in the list\n");
+                if (!Exists(data))
+                {
+                    base.ChangeByPosition(position, data);
+                }
             }
-
-            base.Remove(data);
         }
     }
 }
