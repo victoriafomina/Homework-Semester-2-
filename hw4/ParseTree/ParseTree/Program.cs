@@ -16,9 +16,9 @@ namespace PrefixParseTree
 
             var prefixCalculator = new ParseTree(prefixExpression);
 
-            Console.WriteLine("The expression in the file:\n", prefixExpression);
-            Console.WriteLine("Calculated: ", prefixCalculator.Calculate());
-            Console.WriteLine("Printed: ", prefixCalculator.ToString());
+            Console.WriteLine($"The expression in the file: {prefixExpression}");
+            Console.WriteLine($"Calculated: {prefixCalculator.Calculate()}");
+            Console.WriteLine($"Printed: {prefixCalculator.ToString()}");
         }
     }
 }
