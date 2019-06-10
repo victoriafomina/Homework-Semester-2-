@@ -51,5 +51,24 @@ namespace ListUtilsTests
 
             Assert.AreEqual(6, result);
         }
+
+        [TestMethod]
+        public void MapTestAddFiveToEveryElement()
+        {
+            list = ListUtils.Map(new List<int>() { 0, -5, 3 }, x => x + 5);
+
+            Assert.AreEqual(3, list.Count);
+            Assert.AreEqual(5, list[0]);
+            Assert.AreEqual(0, list[1]);
+            Assert.AreEqual(8, list[2]);
+        }
+
+        [TestMethod]
+        public void FilterTest()
+        {
+            var result = ListUtils.Fold(new List<int>() { -3, 2, 0 }, 3, (acc, elem) => acc + elem);
+
+            Assert.AreEqual(2, result);
+        }
     }
 }
