@@ -51,7 +51,7 @@
             // 
             this.timer.Enabled = true;
             this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
+            this.timer.Tick += new System.EventHandler(this.TimerTick);
             // 
             // Clock
             // 
@@ -63,7 +63,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Clock";
             this.Text = "Clock";
-            this.Load += new System.EventHandler(this.Clock_Load);
+            this.Load += new System.EventHandler(this.ClockLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 

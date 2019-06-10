@@ -14,14 +14,15 @@ namespace Clock
         public Clock()
         {
             InitializeComponent();
+            TimerTick(null, null);
         }
 
-        private void Clock_Load(object sender, EventArgs e)
+        private void ClockLoad(object sender, EventArgs e)
         {
             timer.Start();
         }
         
-        private void Timer_Tick(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
             ClockField.Text = DateTime.Now.ToString("T");
         }
