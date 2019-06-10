@@ -64,11 +64,29 @@ namespace ListUtilsTests
         }
 
         [TestMethod]
-        public void FilterTest()
+        public void FoldTestAddAccumulatedElementToEveryElement()
         {
             var result = ListUtils.Fold(new List<int>() { -3, 2, 0 }, 3, (acc, elem) => acc + elem);
 
             Assert.AreEqual(2, result);
+        }
+
+        [TestMethod]
+        public void FilterTestWhenElementMoreThanFiveReturnsTrue()
+        {
+            var newList = new List<int>();
+            newList.Add(8);
+            newList.Add(10);
+            newList.Add(0);
+            newList.Add(1);
+            newList.Add(-45);
+            newList.Add(-7);
+
+            list = ListUtils.Filter(newList, x => x > 5);
+
+            Assert.AreEqual(2, list.Count);
+            Assert.IsTrue(list.Contains(10));
+            Assert.IsTrue(list.Contains(8));
         }
     }
 }
