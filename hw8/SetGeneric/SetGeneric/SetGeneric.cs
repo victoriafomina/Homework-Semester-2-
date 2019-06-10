@@ -376,6 +376,7 @@ namespace SetGeneric
         {
             private Set<T> tree;
             private int currentIndex;
+            private Queue<T> elements;
 
             /// <summary>
             /// Initializes an object of the class Iterator.
@@ -384,8 +385,32 @@ namespace SetGeneric
             {
                 this.tree = tree;
                 currentIndex = -1;
+                elements = new Queue<T>();
+                FullfillStackWithTheElements();
             }
 
+            private void FullfillStackWithTheElements()
+            {
+                if (tree.Count > 0)
+                {
+                    FullfillStackWithTheElementsRecursion(tree.root);
+                }
+            }
+
+            private void FullfillStackWithTheElementsRecursion(Node current)
+            {
+                elements.Enqueue(current.Item);
+
+                if (current.LeftChild != null)
+                {
+                    FullfillStackWithTheElementsRecursion(current.LeftChild);
+                }
+
+                if (current.RightChild != null)
+                {
+                    FullfillStackWithTheElementsRecursion(current.RightChild);
+                }
+            }
             /// <summary>
             /// Gets the element in the collection at the current position of the enumerator.
             /// </summary>
@@ -393,12 +418,12 @@ namespace SetGeneric
             {
                 get
                 {
-                    if (currentIndex < 0 || currentIndex >= tree.Count)
+                    if (currentIndex < 0 || currentIndex > tree.Count)
                     {
                         throw new IndexOutOfRangeException("Index is out of range!\n");
                     }
 
-                    return tree[currentIndex];
+                    return elements.Dequeue();
                 }
             }
 
