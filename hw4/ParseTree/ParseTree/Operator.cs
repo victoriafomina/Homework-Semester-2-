@@ -8,6 +8,16 @@ namespace PrefixParseTree
     public abstract class Operator : Node
     {
         /// <summary>
+        /// The property that lets get or set the left child.
+        /// </summary>
+        public Node LeftChild { get; set; }
+
+        /// <summary>
+        /// The property that lest get or set right child.
+        /// </summary>
+        public Node RightChild { get; set; }
+
+        /// <summary>
         /// The property that returns the operation symbol.
         /// </summary>
         public abstract char OperationSymbol { get; }

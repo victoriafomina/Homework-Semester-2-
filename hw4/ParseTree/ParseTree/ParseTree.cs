@@ -77,8 +77,11 @@ namespace PrefixParseTree
                         throw new FormatException("Invalid format of input string!\n");
                 }
 
-                newNode.LeftChild = ParseRecursion(expression);
-                newNode.RightChild = ParseRecursion(expression);
+                if (newNode is Operator op)
+                {
+                    op.LeftChild = ParseRecursion(expression);
+                    op.RightChild = ParseRecursion(expression);
+                }
 
                 expression.Dequeue();
             }

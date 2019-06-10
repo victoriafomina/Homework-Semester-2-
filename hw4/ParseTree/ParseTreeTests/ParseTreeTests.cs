@@ -76,23 +76,17 @@ namespace ParseTreeTests
         [TestMethod]
         public void ThreeOperandsCalculateTest()
         {
-            prefixExpression = "(* (+ 2 3) + 10 5)";
+            prefixExpression = "(* (+ 2 3) (+ 10 5))";
             parser = new ParseTree(prefixExpression);
-            Assert.AreEqual(25, parser.Calculate());
+            Assert.AreEqual(75, parser.Calculate());
         }
 
         [TestMethod]
         public void ThreeOperandsToStringTest()
         {
-            prefixExpression = "(* (+ 2 3) + 10 5)";
+            prefixExpression = "(* (+ 2 3) 8)";
             parser = new ParseTree(prefixExpression);
-            Assert.AreEqual(prefixExpression, parser.Calculate());
-        }
-
-        [TestMethod]
-        public void LongCalculateTest()
-        {
-
+            Assert.AreEqual(prefixExpression, parser.ToString());
         }
     }
 }
