@@ -376,7 +376,7 @@ namespace SetGeneric
         {
             private Set<T> tree;
             private int currentIndex;
-            private Queue<T> elements;
+            private List<T> elements;
 
             /// <summary>
             /// Initializes an object of the class Iterator.
@@ -385,30 +385,30 @@ namespace SetGeneric
             {
                 this.tree = tree;
                 currentIndex = -1;
-                elements = new Queue<T>();
-                FullfillStackWithTheElements();
+                elements = new List<T>();
+                FillListWithTheElements();
             }
 
-            private void FullfillStackWithTheElements()
+            private void FillListWithTheElements()
             {
                 if (tree.Count > 0)
                 {
-                    FullfillStackWithTheElementsRecursion(tree.root);
+                    FillQueueWithTheElementsRecursion(tree.root);
                 }
             }
 
-            private void FullfillStackWithTheElementsRecursion(Node current)
+            private void FillQueueWithTheElementsRecursion(Node current)
             {
-                elements.Enqueue(current.Item);
+                elements.Add(current.Item);
 
                 if (current.LeftChild != null)
                 {
-                    FullfillStackWithTheElementsRecursion(current.LeftChild);
+                    FillQueueWithTheElementsRecursion(current.LeftChild);
                 }
 
                 if (current.RightChild != null)
                 {
-                    FullfillStackWithTheElementsRecursion(current.RightChild);
+                    FillQueueWithTheElementsRecursion(current.RightChild);
                 }
             }
             /// <summary>
@@ -423,7 +423,7 @@ namespace SetGeneric
                         throw new IndexOutOfRangeException("Index is out of range!\n");
                     }
 
-                    return elements.Dequeue();
+                    return elements[currentIndex];
                 }
             }
 
