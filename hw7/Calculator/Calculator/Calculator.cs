@@ -13,66 +13,6 @@ namespace Calculator
             InitializeComponent();
         }
 
-        private void Button0_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button3_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button4_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button5_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button6_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button7_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button8_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
-        private void Button9_Click(object sender, EventArgs e)
-        {
-            var number = (Button)sender;
-            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
-        }
-
         private void ButtonComma_Click(object sender, EventArgs e)
         {
             var comma = (Button)sender;
@@ -113,6 +53,12 @@ namespace Calculator
         {
             var clear = (Button)sender;
             expression.Text = calculator.ClearClickHandler();
+        }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            var number = (Button)sender;
+            expression.Text = calculator.NumberClickHandler(expression.Text, number.Text);
         }
     }
 }

@@ -78,10 +78,8 @@ namespace Calculator
 
         private void ExpressionIncludesAnOperatorWithTwoOperandsCalculate(ref string expression)
         {
-            double operandLeft;
-            double operandRight;
-            ParseLeftOperandToDouble(out operandLeft, expression);
-            ParseRightOperandToDouble(out operandRight, expression);
+            ParseLeftOperandToDouble(out double operandLeft, expression);
+            ParseRightOperandToDouble(out double operandRight, expression);
 
             double result = 0;
 
