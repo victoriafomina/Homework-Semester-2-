@@ -126,11 +126,11 @@ namespace UniqueList
         }
 
         /// <summary>
-        /// Pops an element with the data "data".
+        /// Removes an element with the data "data".
         /// </summary>
         /// <param name="data">Data of the element to pop.</param>
         /// <exception cref="InvalidOperationException">Thrown when element does not found.</exception>
-        public virtual void Pop(T data)
+        public virtual void Remove(T data)
         {
             if (!Exists(data))
             {

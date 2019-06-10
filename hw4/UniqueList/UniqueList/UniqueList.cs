@@ -8,15 +8,10 @@ namespace UniqueList
     /// </summary>
     public class UniqueList : List<int>
     {
-        private List<int> list;
-
         /// <summary>
         /// Creates an object of the UniqueList class.
         /// </summary>
-        public UniqueList()
-        {
-            list = new List<int>();
-        }
+        public UniqueList() : base() { }
 
         /// <summary>
         /// Pushes an element into position.
@@ -30,17 +25,24 @@ namespace UniqueList
             {
                 throw new DuplicateElementException($"Element with the data {data} is already in the list\n");
             }
+            
             base.PushToPosition(position, data);
         }
 
-        public override void Pop(int data)
+        /// <summary>
+        /// Removes an element with the data "data".
+        /// </summary>
+        /// <param name="data">Data of the element to pop.</param>
+        /// <exception cref="InvalidOperationException">Thrown when element does not found.</exception>S
+        public override void Remove(int data)
         {
             if (!Exists(data))
             {
                 throw new ElementDoesNotExistException($"Element with the data {data} does not exist " +
-                        $"in the list\n");
+                        "in the list\n");
             }
-            base.Pop(data);
+
+            base.Remove(data);
         }
     }
 }

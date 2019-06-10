@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UniqueList.Tests
 {
@@ -85,7 +84,7 @@ namespace UniqueList.Tests
         [ExpectedException(typeof(ElementDoesNotExistException))]
         public void PopTestEmptyList()
         {
-            list.Pop(5);
+            list.Remove(5);
         }
 
         [TestMethod]
@@ -93,7 +92,7 @@ namespace UniqueList.Tests
         {
             list.PushToPosition(0, 0);
             Assert.IsTrue(list.Exists(0));
-            list.Pop(0);
+            list.Remove(0);
             Assert.IsTrue(list.IsEmpty());
             Assert.IsFalse(list.Exists(0));
         }
@@ -103,11 +102,11 @@ namespace UniqueList.Tests
         {
             list.PushToPosition(0, 1);
             Assert.IsTrue(list.Exists(1));
-            list.Pop(1);
+            list.Remove(1);
             Assert.IsTrue(list.IsEmpty());
             list.PushToPosition(0, 1);
             Assert.IsFalse(list.IsEmpty());
-            list.Pop(1);
+            list.Remove(1);
             Assert.IsFalse(list.Exists(1));
             Assert.IsTrue(list.IsEmpty());
         }
@@ -120,7 +119,7 @@ namespace UniqueList.Tests
             list.PushToPosition(1, 10);
             list.PushToPosition(3, 20);
             Assert.IsTrue(list.Exists(10));
-            list.Pop(10);
+            list.Remove(10);
             Assert.IsFalse(list.Exists(10));
             Assert.IsFalse(list.IsEmpty());
         }
@@ -133,7 +132,7 @@ namespace UniqueList.Tests
             list.PushToPosition(0, -3);
             list.PushToPosition(1, 10);
             list.PushToPosition(3, 20);
-            list.Pop(12);
+            list.Remove(12);
         }
 
         [TestMethod]
@@ -144,8 +143,8 @@ namespace UniqueList.Tests
             list.PushToPosition(0, -3);
             list.PushToPosition(1, 10);
             list.PushToPosition(3, 20);
-            list.Pop(10);
-            list.Pop(10);
+            list.Remove(10);
+            list.Remove(10);
         }
     }
 }
