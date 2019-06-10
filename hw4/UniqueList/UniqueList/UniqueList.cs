@@ -9,11 +9,6 @@ namespace UniqueList
     public class UniqueList : List<int>
     {
         /// <summary>
-        /// Creates an object of the UniqueList class.
-        /// </summary>
-        public UniqueList() : base() { }
-
-        /// <summary>
         /// Pushes an element into position.
         /// </summary>
         /// <param name="position">Index by which element is going to be add.</param>
