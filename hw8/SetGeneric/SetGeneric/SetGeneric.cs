@@ -428,26 +428,17 @@ namespace SetGeneric
             public void Dispose() { }
         }
 
-        private T Traversal(Node currentNode, T[] destination, ref int copyToPos)
-        {
-            if (currentNode.LeftChild != null)
-            {
-                return Traversal(currentNode.LeftChild, destination, ref copyToPos);
-            }
-            if (currentNode.RightChild != null)
-            {
-                return Traversal(currentNode.RightChild, destination, ref copyToPos);
-            }
-
-            return currentNode.Item;
-        }
-
         /// <summary>
         /// Removes all elements in the specified collection from the current set.
         /// </summary>
         /// <param name="other">The collection of items to remove from the set.</param>
         public void ExceptWith(IEnumerable<T> other)
         {
+            if (this == other)
+            {
+                throw new ArgumentException("The argument is the current object!\n");
+            }
+
             foreach (var element in other)
             {
                 Remove(element);
