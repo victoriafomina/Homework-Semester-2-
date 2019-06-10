@@ -10,9 +10,9 @@ namespace Lambdas
         /// <summary>
         /// Creates a new list that is modified list-argument. 
         /// </summary>
-        public static List<int> Map(List<int> list, Func<int, int> modification)
+        public static List<T1> Map<T, T1>(List<T> list, Func<T, T1> modification)
         {
-            var newList = new List<int>();
+            var newList = new List<T1>();
 
             foreach (var element in list)
             {
@@ -43,9 +43,9 @@ namespace Lambdas
         /// <summary>
         /// Calculates new accumulated value using the list and the input accumulated value.
         /// </summary>
-        public static int Fold(List<int> list, int accumulatedValue, Func<int, int, int> counterOfAccumulateValue)
+        public static T1 Fold<T, T1>(List<T> list, T1 accumulatedValue, Func<T1, T, T1> counterOfAccumulateValue)
         {
-            int currentAccumulatedValue = accumulatedValue;
+            T1 currentAccumulatedValue = accumulatedValue;
 
             foreach (var element in list)
             {
