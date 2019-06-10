@@ -129,12 +129,12 @@ namespace UniqueList
         /// Removes an element with the data "data".
         /// </summary>
         /// <param name="data">Data of the element to pop.</param>
-        /// <exception cref="InvalidOperationException">Thrown when element does not found.</exception>
+        /// <exception cref="ElementDoesNotExistException">Thrown when element does not found.</exception>
         public void Remove(T data)
         {
             if (!Exists(data))
             {
-                throw new InvalidOperationException($"Element with the data {data} is not in the list\n");
+                throw new ElementDoesNotExistException($"Element with the data {data} is not in the list\n");
             }
             --size;
             var temp = head;
@@ -197,6 +197,7 @@ namespace UniqueList
             while (currentPosition != position)
             {
                 currentNode = currentNode.Next;
+                ++currentPosition;
             }
 
             currentNode.Data = data;

@@ -33,8 +33,9 @@ namespace UniqueList
 
         /// <summary>
         /// Changes the value by position.
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
+        /// <exception cref="DuplicateElementException">Thrown when element with the value does exist.</exception>
         public override void ChangeByPosition(int position, int data)
         {
             if (GetValueByPosition(position) != data)
@@ -45,7 +46,7 @@ namespace UniqueList
                 }
                 else
                 {
-                    throw
+                    throw new DuplicateElementException("The element with the current data is already in the list!\n");
                 }
             }
         }

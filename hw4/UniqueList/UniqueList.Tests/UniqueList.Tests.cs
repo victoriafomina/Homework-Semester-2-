@@ -161,10 +161,27 @@ namespace UniqueList.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Argumm))]
-        public void ChangeByPositionTestException()
+        [ExpectedException(typeof(DuplicateElementException))]
+        public void ChangeByPositionTestDuplicateException()
         {
+            list.PushToPosition(0, 5);
+            list.PushToPosition(1, 10);
+            list.PushToPosition(2, 45);
+            list.PushToPosition(3, -7);
 
+            list.ChangeByPosition(2, -7);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+        public void ChangeByPositionTestArgumentOutOfRangeException()
+        {
+            list.PushToPosition(0, 5);
+            list.PushToPosition(1, 10);
+            list.PushToPosition(2, 45);
+            list.PushToPosition(3, -7);
+
+            list.ChangeByPosition(-1, -7);
         }
     }
 }
