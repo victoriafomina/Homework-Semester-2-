@@ -182,12 +182,13 @@ namespace UniqueList
 
         /// <summary>
         /// Changes the value by postion.
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
         /// </summary>
         public virtual void ChangeByPosition(int position, T data)
         {
             if (position < 0 || position >= size)
             {
-                throw new ArgumentException("Position is invalid!\n");
+                throw new ArgumentOutOfRangeException("Position is invalid!\n");
             }
 
             int currentPosition = 0;

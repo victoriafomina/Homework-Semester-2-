@@ -146,5 +146,25 @@ namespace UniqueList.Tests
             list.Remove(10);
             list.Remove(10);
         }
+
+        [TestMethod]
+        public void ChangeByPositionTestSmoke()
+        {
+            list.PushToPosition(0, 5);
+            list.PushToPosition(1, 10);
+            list.PushToPosition(2, 45);
+            list.PushToPosition(3, -7);
+
+            list.ChangeByPosition(2, 56);
+
+            Assert.AreEqual(56, list.GetValueByPosition(2));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Argumm))]
+        public void ChangeByPositionTestException()
+        {
+
+        }
     }
 }

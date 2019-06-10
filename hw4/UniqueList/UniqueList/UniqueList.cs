@@ -33,6 +33,7 @@ namespace UniqueList
 
         /// <summary>
         /// Changes the value by position.
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when position is invalid.</exception>
         /// </summary>
         public override void ChangeByPosition(int position, int data)
         {
@@ -41,6 +42,10 @@ namespace UniqueList
                 if (!Exists(data))
                 {
                     base.ChangeByPosition(position, data);
+                }
+                else
+                {
+                    throw
                 }
             }
         }
