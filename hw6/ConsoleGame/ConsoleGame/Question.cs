@@ -3,14 +3,14 @@
 namespace ConsoleGame
 {
     /// <summary>
-    /// Represents a smiley that moves on the map.
+    /// Represents a question that moves on the map.
     /// </summary>
-    public class Smiley
+    public class Question
     {
         /// <summary>
-        /// Initializes an object of the class Smiley.
+        /// Initializes an object of the class Question.
         /// </summary>
-        public Smiley(int startingTop, int staringLeft)
+        public Question(int startingTop, int staringLeft)
         {
             TopPosition = startingTop;
             LeftPosition = staringLeft;
@@ -27,27 +27,27 @@ namespace ConsoleGame
         public int LeftPosition { get; private set; }
 
         /// <summary>
-        /// Moves the Smiley by one position left.
+        /// Moves the Question by one position left.
         /// </summary>
         public void Left() => --LeftPosition;
 
         /// <summary>
-        /// Moves the Smiley by one position right.
+        /// Moves the Question by one position right.
         /// </summary>
         public void Right() => ++LeftPosition;
 
         /// <summary>
-        /// Moves the Smiley by one position up.
+        /// Moves the Question by one position up.
         /// </summary>
         public void Up() => --TopPosition;
 
         /// <summary>
-        /// Moves the Smiley by one position down.
+        /// Moves the Question by one position down.
         /// </summary>
         public void Down() => ++TopPosition;
 
         /// <summary>
-        /// Displays the Smiley.
+        /// Displays the Question.
         /// </summary>
         public void Display()
         {

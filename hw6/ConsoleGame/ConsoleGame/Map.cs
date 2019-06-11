@@ -35,7 +35,7 @@ namespace ConsoleGame
                 }
             }
 
-            if (StatringPosition.left < 0 || StatringPosition.top < 0)
+            if (StartingPosition.left < 0 || StartingPosition.top < 0)
             {
                 throw new FormatException();
             }
@@ -59,7 +59,7 @@ namespace ConsoleGame
 
                     if (currentCharacter == '?')
                     {
-                        StatringPosition = (i, j);
+                        StartingPosition = (i, j);
                         this.map[i, j] = ' ';
                     }
                     else
@@ -73,7 +73,7 @@ namespace ConsoleGame
         /// <summary>
         /// Position at which the character starts moving.
         /// </summary>
-        public (int top, int left) StatringPosition { get; private set; } = (-1, -1);
+        public (int top, int left) StartingPosition { get; private set; } = (-1, -1);
 
         /// <summary>
         /// The property that returns the height of the map.

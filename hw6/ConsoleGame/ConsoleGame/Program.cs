@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             var eventLoop = new EventLoop();
-            var smileyHandler = new SmileyHandler("map.txt");
+            var smileyHandler = new QuestionHandler("map.txt");
 
             eventLoop.LeftPressed += smileyHandler.LeftMovement;
             eventLoop.RightPressed += smileyHandler.RightMovement;
