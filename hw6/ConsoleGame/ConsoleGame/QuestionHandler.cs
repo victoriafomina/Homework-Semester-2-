@@ -56,7 +56,7 @@ namespace ConsoleGame
         /// </summary>
         public void UpMovement(object sender, EventArgs e)
         {
-            if (map[question.TopPosition + 1, question.LeftPosition] == ' ')
+            if (map[question.TopPosition - 1, question.LeftPosition] == ' ')
             {
                 map.Display(question.TopPosition, question.LeftPosition);
                 question.Up();
@@ -69,7 +69,7 @@ namespace ConsoleGame
         /// </summary>
         public void DownMovement(object sender, EventArgs e)
         {
-            if (map[question.TopPosition - 1, question.LeftPosition] == ' ')
+            if (map[question.TopPosition + 1, question.LeftPosition] == ' ')
             {
                 map.Display(question.TopPosition, question.LeftPosition);
                 question.Down();
