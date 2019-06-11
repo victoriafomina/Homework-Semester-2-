@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ConsoleGame;
+using System;
 
 namespace ConsoleGameTests
 {
@@ -37,6 +38,27 @@ namespace ConsoleGameTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void MapTestNoHeight()
+        {
+            var map = new Map("map2.txt");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void MapTestIncorrectMap()
+        {
+            var map = new Map("map3.txt");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void MapTestIncorrectHeightWidth()
+        {
+            var map = new Map("map4.txt");
+        }
+
+        [TestMethod]
         public void MapTestCharacterCantGoAnywhere2()
         {
             var map = new Map("map5.txt");
@@ -64,6 +86,6 @@ namespace ConsoleGameTests
             }
 
             Assert.IsTrue(flagWorksRight);
-        }
+        }        
     }
 }
