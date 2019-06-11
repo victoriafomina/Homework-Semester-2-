@@ -86,6 +86,14 @@ namespace ConsoleGameTests
             }
 
             Assert.IsTrue(flagWorksRight);
-        }        
+        }
+        
+        [TestMethod]
+        public void QuestionWalksRightTest()
+        {
+            var map = new Map("map6.txt");
+
+            var question = new Question(map.StartingPosition.top, map.StartingPosition.left);
+        }
     }
 }
