@@ -87,13 +87,21 @@ namespace ConsoleGameTests
 
             Assert.IsTrue(flagWorksRight);
         }
-        
+
         [TestMethod]
         public void QuestionWalksRightTest()
         {
-            var map = new Map("map6.txt");
+            var question = new QuestionHandler("map6.txt");
 
-            var question = new Question(map.StartingPosition.top, map.StartingPosition.left);
+            Assert.IsFalse(question.MovedDown);
+            Assert.IsTrue(question.MovedUp);
+            Assert.IsFalse(question.MovedUp);
+            Assert.IsTrue(question.MovedLeft);
+            Assert.IsFalse(question.MovedLeft);
+            Assert.IsFalse(question.MovedUp);
+            Assert.IsTrue(question.MovedRight);
+            Assert.IsTrue(question.MovedRight);
+            Assert.IsFalse(question.MovedRight);
         }
     }
 }

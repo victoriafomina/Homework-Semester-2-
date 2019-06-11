@@ -35,7 +35,9 @@ namespace ConsoleGame
                 map.Display(question.TopPosition, question.LeftPosition);
                 question.Left();
                 question.Display();
+                MovedLeft = true;
             }
+            MovedLeft = false;
         }
 
         /// <summary>
@@ -48,7 +50,9 @@ namespace ConsoleGame
                 map.Display(question.TopPosition, question.LeftPosition);
                 question.Right();
                 question.Display();
+                MovedRight = true;
             }
+            MovedRight = false;
         }
 
         /// <summary>
@@ -61,7 +65,9 @@ namespace ConsoleGame
                 map.Display(question.TopPosition, question.LeftPosition);
                 question.Up();
                 question.Display();
+                MovedUp = true;
             }
+            MovedUp = false;
         }
 
         /// <summary>
@@ -74,7 +80,17 @@ namespace ConsoleGame
                 map.Display(question.TopPosition, question.LeftPosition);
                 question.Down();
                 question.Display();
+                MovedDown = true;
             }
+            MovedDown = false;
         }
+
+        public bool MovedDown { get; private set; } = false;
+
+        public bool MovedUp { get; private set; } = false;
+
+        public bool MovedLeft { get; private set; } = false;
+
+        public bool MovedRight { get; private set; } = false;
     }
 }
