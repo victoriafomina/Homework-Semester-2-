@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ConsoleGame
+﻿namespace ConsoleGame
 {
     class Program
     {

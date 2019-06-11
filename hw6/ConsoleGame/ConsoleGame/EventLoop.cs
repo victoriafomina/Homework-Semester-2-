@@ -35,8 +35,6 @@ namespace ConsoleGame
                     case ConsoleKey.DownArrow:
                         DownPressed?.Invoke(this, EventArgs.Empty);
                         break;
-                    case ConsoleKey.Escape:
-                        return;
                 }
             }
         }
