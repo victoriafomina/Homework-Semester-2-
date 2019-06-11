@@ -19,8 +19,7 @@ namespace ConsoleGame
             smiley = new Smiley(map.StatringPosition.top, map.StatringPosition.left);
 
             Console.CursorVisible = false;
-            Console.WriteLine("☻ likes to move it, move it!\n☻ likes to move it, move it!\n☻likes to move it!\n\n" +
-                    "Use arrows to move Smiley!\n\n");
+            Console.WriteLine("Use arrows to move Smiley!\n\n");
 
             map.Display();
             smiley.Display();

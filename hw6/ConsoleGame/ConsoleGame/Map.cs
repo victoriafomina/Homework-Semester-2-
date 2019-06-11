@@ -57,7 +57,7 @@ namespace ConsoleGame
                         currentCharacter = (char)map.Read();
                     }
 
-                    if (currentCharacter == '☻')
+                    if (currentCharacter == '?')
                     {
                         StatringPosition = (i, j);
                         this.map[i, j] = ' ';

@@ -57,7 +57,7 @@ namespace ConsoleGame
             Console.CursorLeft += LeftPosition;
             Console.CursorTop += TopPosition;
 
-            Console.Write('☻');
+            Console.Write('?');
 
             Console.CursorLeft = startingLeft;
             Console.CursorTop = startingTop;
