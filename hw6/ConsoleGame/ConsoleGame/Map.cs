@@ -13,6 +13,9 @@ namespace ConsoleGame
         /// </summary>
         public Map(string path)
         {
+            startingPosition.Left = -1;
+            startingPosition.Top = -1;
+
             using (var mapOfTheGame = new StreamReader(path))
             {
                 int width = 0;
@@ -35,7 +38,7 @@ namespace ConsoleGame
                 }
             }
 
-            if (StartingPosition.left < 0 || StartingPosition.top < 0)
+            if (StartingPosition.Left < 0 || StartingPosition.Top < 0)
             {
                 throw new FormatException();
             }
@@ -59,7 +62,8 @@ namespace ConsoleGame
 
                     if (currentCharacter == '?')
                     {
-                        StartingPosition = (i, j);
+                        StartingPosition.Top = i;
+                        StartingPosition.Left = j;
                         this.map[i, j] = ' ';
                     }
                     else
@@ -73,7 +77,17 @@ namespace ConsoleGame
         /// <summary>
         /// Position at which the character starts moving.
         /// </summary>
-        public (int top, int left) StartingPosition { get; private set; } = (-1, -1);
+        public Coordinates StartingPosition
+        {
+            get
+            {
+                re
+            }
+
+            private set { }
+        }
+
+        private Coordinates startingPosition;
 
         /// <summary>
         /// The property that returns the height of the map.

@@ -86,6 +86,7 @@ namespace ConsoleGameTests
             }
 
             Assert.IsTrue(flagWorksRight);
+<<<<<<< HEAD
         }
 
         [TestMethod]
@@ -103,5 +104,8 @@ namespace ConsoleGameTests
             Assert.IsTrue(question.MovedRight);
             Assert.IsFalse(question.MovedRight);
         }
+=======
+        }        
+>>>>>>> e153c92ebcd21f9939f2157513039d3667c5562c
     }
 }
