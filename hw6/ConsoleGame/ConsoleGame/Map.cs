@@ -123,5 +123,22 @@ namespace ConsoleGame
             Console.CursorLeft = startConsoleLeft;
             Console.CursorTop = startConsoleTop;
         }
+
+        /// <summary>
+        /// Displays one square of the map.
+        /// </summary>
+        public void Display(int top, int left)
+        {
+            var startingLeft = Console.CursorLeft;
+            var startingTop = Console.CursorTop;
+
+            Console.CursorLeft += left;
+            Console.CursorTop += top;
+
+            Console.Write(map[top, left]);
+
+            Console.CursorLeft = startingLeft;
+            Console.CursorTop = startingTop;
+        }
     }
 }

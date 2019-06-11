@@ -26,5 +26,56 @@ namespace ConsoleGame
             smiley.Display();
         }
 
+        /// <summary>
+        /// Handles the movement to the left.
+        /// </summary>
+        public void LeftMovement(object sender, EventArgs e)
+        {
+            if (map[smiley.TopPosition, smiley.LeftPosition - 1] == ' ')
+            {
+                map.Display(smiley.TopPosition, smiley.LeftPosition);
+                smiley.Left();
+                smiley.Display();
+            }
+        }
+
+        /// <summary>
+        /// Handles the movement to the right.
+        /// </summary>
+        public void RightMovement(object sender, EventArgs e)
+        {
+            if (map[smiley.TopPosition, smiley.LeftPosition - 1] == ' ')
+            {
+                map.Display(smiley.TopPosition, smiley.LeftPosition);
+                smiley.Right();
+                smiley.Display();
+            }
+        }
+
+        /// <summary>
+        /// Handles upward movement.
+        /// </summary>
+        public void UpMovement(object sender, EventArgs e)
+        {
+            if (map[smiley.TopPosition, smiley.LeftPosition - 1] == ' ')
+            {
+                map.Display(smiley.TopPosition, smiley.LeftPosition);
+                smiley.Up();
+                smiley.Display();
+            }
+        }
+
+        /// <summary>
+        /// Handles the downward movement.
+        /// </summary>
+        public void DownMovement(object sender, EventArgs e)
+        {
+            if (map[smiley.TopPosition, smiley.LeftPosition - 1] == ' ')
+            {
+                map.Display(smiley.TopPosition, smiley.LeftPosition);
+                smiley.Down();
+                smiley.Display();
+            }
+        }
     }
 }
