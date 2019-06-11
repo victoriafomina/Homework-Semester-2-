@@ -106,9 +106,8 @@ namespace ConsoleGame
         /// </summary>
         public void Display()
         {
-
-            var startConsoleLeft = Console.CursorLeft;
-            var startConsoleTop = Console.CursorTop;
+            var startingLeft = Console.CursorLeft;
+            var startingTop = Console.CursorTop;
 
             for (var i = 0; i < Height; ++i)
             {
@@ -120,8 +119,8 @@ namespace ConsoleGame
                 Console.WriteLine();
             }
 
-            Console.CursorLeft = startConsoleLeft;
-            Console.CursorTop = startConsoleTop;
+            Console.CursorLeft = startingLeft;
+            Console.CursorTop = startingTop;
         }
 
         /// <summary>
