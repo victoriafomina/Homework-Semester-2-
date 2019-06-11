@@ -26,6 +26,26 @@ namespace ConsoleGame
         /// </summary>
         public int LeftPosition { get; private set; }
 
+        /// <summary>
+        /// Moves the Smiley by one position left.
+        /// </summary>
+        public void Left() => --LeftPosition;
+
+        /// <summary>
+        /// Moves the Smiley by one position right.
+        /// </summary>
+        public void Right() => ++LeftPosition;
+
+        /// <summary>
+        /// Moves the Smiley by one position up.
+        /// </summary>
+        public void Up() => --TopPosition;
+
+        /// <summary>
+        /// Moves the Smiley by one position down.
+        /// </summary>
+        public void Down() => ++TopPosition;
+
 
     }
 }
