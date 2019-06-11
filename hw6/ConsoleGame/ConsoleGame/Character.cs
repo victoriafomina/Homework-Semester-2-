@@ -46,6 +46,21 @@ namespace ConsoleGame
         /// </summary>
         public void Down() => ++TopPosition;
 
+        /// <summary>
+        /// Displays the Smiley.
+        /// </summary>
+        public void Display()
+        {
+            var startingLeft = Console.CursorLeft;
+            var startingTop = Console.CursorTop;
 
+            Console.CursorLeft += LeftPosition;
+            Console.CursorTop += TopPosition;
+
+            Console.Write('☻');
+
+            Console.CursorLeft = startingLeft;
+            Console.CursorTop = startingTop;
+        }
     }
 }

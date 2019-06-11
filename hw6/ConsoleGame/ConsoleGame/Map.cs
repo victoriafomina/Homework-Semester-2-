@@ -102,9 +102,9 @@ namespace ConsoleGame
         }
 
         /// <summary>
-        /// Displays the map on the console.
+        /// Displays the map.
         /// </summary>
-        public void DisplayTheMap()
+        public void Display()
         {
 
             var startConsoleLeft = Console.CursorLeft;
