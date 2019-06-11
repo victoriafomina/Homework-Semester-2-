@@ -19,8 +19,8 @@ namespace ConsoleGame
             smiley = new Smiley(map.StatringPosition.top, map.StatringPosition.left);
 
             Console.CursorVisible = false;
-            Console.WriteLine("☻ likes to move it, move it!\n☻ likes to move it, move it!\n☻likes to move it!" +
-                    "Use arrows to move Smiley!");
+            Console.WriteLine("☻ likes to move it, move it!\n☻ likes to move it, move it!\n☻likes to move it!\n\n" +
+                    "Use arrows to move Smiley!\n\n");
 
             map.Display();
             smiley.Display();
@@ -44,7 +44,7 @@ namespace ConsoleGame
         /// </summary>
         public void RightMovement(object sender, EventArgs e)
         {
-            if (map[smiley.TopPosition, smiley.LeftPosition - 1] == ' ')
+            if (map[smiley.TopPosition, smiley.LeftPosition + 1] == ' ')
             {
                 map.Display(smiley.TopPosition, smiley.LeftPosition);
                 smiley.Right();
@@ -57,7 +57,7 @@ namespace ConsoleGame
         /// </summary>
         public void UpMovement(object sender, EventArgs e)
         {
-            if (map[smiley.TopPosition, smiley.LeftPosition - 1] == ' ')
+            if (map[smiley.TopPosition + 1, smiley.LeftPosition] == ' ')
             {
                 map.Display(smiley.TopPosition, smiley.LeftPosition);
                 smiley.Up();
@@ -70,7 +70,7 @@ namespace ConsoleGame
         /// </summary>
         public void DownMovement(object sender, EventArgs e)
         {
-            if (map[smiley.TopPosition, smiley.LeftPosition - 1] == ' ')
+            if (map[smiley.TopPosition - 1, smiley.LeftPosition] == ' ')
             {
                 map.Display(smiley.TopPosition, smiley.LeftPosition);
                 smiley.Down();
