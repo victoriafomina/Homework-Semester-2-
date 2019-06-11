@@ -37,7 +37,10 @@ namespace ConsoleGame
                 question.Display();
                 MovedLeft = true;
             }
-            MovedLeft = false;
+            else
+            {
+                MovedLeft = false;
+            }
         }
 
         /// <summary>
@@ -52,7 +55,10 @@ namespace ConsoleGame
                 question.Display();
                 MovedRight = true;
             }
-            MovedRight = false;
+            else
+            {
+                MovedRight = false;
+            }
         }
 
         /// <summary>
@@ -67,7 +73,10 @@ namespace ConsoleGame
                 question.Display();
                 MovedUp = true;
             }
-            MovedUp = false;
+            else
+            {
+                MovedUp = false;
+            }
         }
 
         /// <summary>
@@ -82,7 +91,10 @@ namespace ConsoleGame
                 question.Display();
                 MovedDown = true;
             }
-            MovedDown = false;
+            else
+            {
+                MovedDown = false;
+            }
         }
 
         public bool MovedDown { get; private set; } = false;

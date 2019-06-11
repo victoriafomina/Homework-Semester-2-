@@ -93,14 +93,31 @@ namespace ConsoleGameTests
         {
             var question = new QuestionHandler("map6.txt");
 
+            question.DownMovement(null, null);
             Assert.IsFalse(question.MovedDown);
+
+            question.UpMovement(null, null);
             Assert.IsTrue(question.MovedUp);
+
+            question.UpMovement(null, null);
             Assert.IsFalse(question.MovedUp);
+
+            question.LeftMovement(null, null);
             Assert.IsTrue(question.MovedLeft);
+
+            question.LeftMovement(null, null);
             Assert.IsFalse(question.MovedLeft);
+
+            question.UpMovement(null, null);
             Assert.IsFalse(question.MovedUp);
+
+            question.RightMovement(null, null);
             Assert.IsTrue(question.MovedRight);
+
+            question.RightMovement(null, null);
             Assert.IsTrue(question.MovedRight);
+
+            question.RightMovement(null, null);
             Assert.IsFalse(question.MovedRight);
         }        
     }
