@@ -8,7 +8,7 @@ namespace ConsoleGame
 {
     class Game
     {
-        private static char character = '@';
+        private static char character = '☻';
 
         /// <summary>
         /// Moves a character 1 square to the right.
